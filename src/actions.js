@@ -1,4 +1,5 @@
 import {browserHistory} from 'react-router';
+import { CALL_API } from './api';
 
 
 // There are three possible states for our login
@@ -103,5 +104,38 @@ export function logoutUser() {
     dispatch(requestLogout())
     localStorage.removeItem('login_token')
     dispatch(receiveLogout())
+  }
+}
+
+
+export const SUBJECT_REQUEST = 'SUBJECT_REQUEST'
+export const SUBJECT_SUCCESS = 'SUBJECT_SUCCESS'
+export const SUBJECT_FAILURE = 'SUBJECT_FAILURE'
+
+
+export function fetchSubjects() {
+  return {
+    [CALL_API]: {
+      endpoint: 'subjects/',
+      authenticated: true,
+      types: [SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE]
+    }
+  }
+}
+
+export const SUBJECT_ADD_REQUEST = 'SUBJECT_ADD_REQUEST'
+export const SUBJECT_ADD_SUCCESS = 'SUBJECT_ADD_SUCCESS'
+export const SUBJECT_ADD_FAILURE = 'SUBJECT_ADD_FAILURE'
+
+
+export function addSubject(subject) {
+  return {
+    [CALL_API]: {
+      endpoint: 'subjects/',
+      post: true,
+      body: subject,
+      authenticated: true,
+      types: [SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE]
+    }
   }
 }

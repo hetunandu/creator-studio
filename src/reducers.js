@@ -1,5 +1,9 @@
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from './actions'
+import { 
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
+  LOGOUT_SUCCESS,
+  SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE,
+  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE } from './actions'
 
 
 // The auth reducer. The starting state sets authentication
@@ -37,3 +41,42 @@ export const auth = (state = {
       return state
   }
 }
+
+export const subjects = (state = {
+    isFetching: false,
+    list: []
+  }, action) => {
+    switch(action.type){
+      //Fethcing the subject list
+      case SUBJECT_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      case SUBJECT_SUCCESS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: action.response.message.subjects,
+        })
+      case SUBJECT_FAILURE:
+        return Object.assign({}, state, {
+          isFetching: false
+        })
+
+      // Adding a subject
+      case SUBJECT_ADD_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      case SUBJECT_ADD_SUCCESS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: state.list.concat([action.response.message]),
+        })
+      case SUBJECT_ADD_FAILURE:
+        return Object.assign({}, state, {
+          isFetching: false
+        })
+      default:
+        return state
+    }
+  }
