@@ -25,35 +25,39 @@ const Chapters = React.createClass({
             marginTop: 10
         }
 
+        let body = this.props.chapters.isFetching ? 
+            ( <p>Loading notes...</p> )
+            :
+            (   
+                <div>
+                    <h3>Chapters in {this.props.subject.name} ( {this.props.chapters.list.length}  )</h3>
+                    <p>{this.props.chapters.errorMessage}</p>
+                    <div>
+                        <Paper zDepth={1} style={addChapterStyle}>
+                            <h4>Create new chapter</h4>
+                            <TextField ref="new_chapter_name" hintText="Type the name of the chapter"/>
+                            <FlatButton label="Create" primary={true} onClick={this.handleAddChapter} />
+                        </Paper>
+                    </div>
+                    <Divider />
+                    <div style={{ display: 'flex' }}>
+                        {
+                            this.props.chapters.list.map(chapter =>
+                                <Paper zDepth={1} style={chaperCardStyle} key={chapter.key}>
+                                    <h4>{chapter.name}</h4>
+                                    <Divider />
+                                    <FlatButton label="View" primary={true}/>
+                                </Paper>
+                            ) 
+
+                        }
+                    </div>
+                </div>
+            )
+
         return (
             <div className="section chapters">
-                <h3>Chapters in {this.props.subject.name} ( {this.props.chapters.list.length}  )</h3>
-                {this.props.chapters.isFetching &&
-                    <p>Loading notes...</p>    
-                }
-                <p>{this.props.chapters.errorMessage}</p>
-                <br/>
-                <div>
-                    <Paper zDepth={1} style={addChapterStyle}>
-                        <h4>Create new chapter</h4>
-                        <TextField ref="new_chapter_name" hintText="Type the name of the chapter"/>
-                        <FlatButton label="Create" primary={true} onClick={this.handleAddChapter} />
-                    </Paper>
-                </div>
-                <Divider />
-                <div style={{ display: 'flex' }}>
-                    {
-                        this.props.chapters.list.map(chapter =>
-                            <Paper zDepth={1} style={chaperCardStyle} key={chapter.key}>
-                                <h4>{chapter.name}</h4>
-                                <Divider />
-                                <FlatButton label="View" primary={true}/>
-                            </Paper>
-                        ) 
-
-                    }
-                </div>
-
+                {body}
             </div>
         );
     },

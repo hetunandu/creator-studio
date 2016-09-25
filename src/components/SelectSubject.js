@@ -17,24 +17,29 @@ const SelectSubject = React.createClass({
     render(){
 
         const activeSubject = this.props.subjects.active
-
+        
+        let body = this.props.subjects.isFetching ? 
+            ( <p>Loading Subjects...</p> ) 
+            :
+            (
+                <div>
+                    <h3>Select a subject</h3>
+                    <SelectField 
+                        value={activeSubject.key} 
+                        onChange={this.handleSubjectChange}
+                        disabled={this.props.subjects.isFetching}
+                    >
+                        {
+                            this.props.subjects.list.map( subject => 
+                                <MenuItem value={subject.key} key={subject.key} primaryText={subject.name} />
+                            )
+                        }  
+                    </SelectField>
+                </div>
+            )
         return (
             <div className="section subject">
-                <h3>Select a subject</h3>
-                {this.props.subjects.isFetching && <p>Loading Subjects...</p>}
-                <p>{this.props.subjects.errorMessage}</p>
-
-                <SelectField 
-                    value={activeSubject.key} 
-                    onChange={this.handleSubjectChange}
-                    disabled={this.props.subjects.isFetching}
-                >
-                    {
-                        this.props.subjects.list.map( subject => 
-                            <MenuItem value={subject.key} key={subject.key} primaryText={subject.name} />
-                        )
-                    }  
-                </SelectField>
+                {body}
             </div>
         );
     },
