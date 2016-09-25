@@ -35,7 +35,6 @@ function callApi(endpoint, authenticated, post, body) {
     .then(json => {
       // if not success, reject the promise
       if (json.success === false) {
-        console.log(json)
         return Promise.reject(json)
       }
 

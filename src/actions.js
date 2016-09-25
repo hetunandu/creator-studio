@@ -108,6 +108,7 @@ export function logoutUser() {
 }
 
 
+// Subject Actions
 export const SUBJECT_REQUEST = 'SUBJECT_REQUEST'
 export const SUBJECT_SUCCESS = 'SUBJECT_SUCCESS'
 export const SUBJECT_FAILURE = 'SUBJECT_FAILURE'
@@ -126,7 +127,6 @@ export function fetchSubjects() {
 export const SUBJECT_ADD_REQUEST = 'SUBJECT_ADD_REQUEST'
 export const SUBJECT_ADD_SUCCESS = 'SUBJECT_ADD_SUCCESS'
 export const SUBJECT_ADD_FAILURE = 'SUBJECT_ADD_FAILURE'
-export const SET_ACTIVE_SUBJECT  = 'SET_ACTIVE_SUBJECT'
 
 export function addSubject(subject) {
   return {
@@ -140,4 +140,43 @@ export function addSubject(subject) {
   }
 }
 
-export const setActiveSubject = subject => ({type: SET_ACTIVE_SUBJECT, subject: subject})
+export const SET_ACTIVE_SUBJECT  = 'SET_ACTIVE_SUBJECT'
+
+export const setActiveSubject = subject => ({type: SET_ACTIVE_SUBJECT, subject})
+
+
+
+// Chapter Actions
+
+export const CHAPTERS_REQUEST = 'CHAPTERS_REQUEST'
+export const CHAPTERS_SUCCESS = 'CHAPTERS_SUCCESS'
+export const CHAPTERS_FAILURE = 'CHAPTERS_FAILURE'
+
+
+export function fetchChapters(subject_key) {
+  return {
+    [CALL_API]: {
+      endpoint: `subjects/${subject_key}/chapters`,
+      authenticated: true,
+      types: [CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE]
+    }
+  }
+}
+
+
+export const CHAPTER_ADD_REQUEST = 'CHAPTER_ADD_REQUEST'
+export const CHAPTER_ADD_SUCCESS = 'CHAPTER_ADD_SUCCESS'
+export const CHAPTER_ADD_FAILURE = 'CHAPTER_ADD_FAILURE'
+
+
+export function addChapter(data) {
+  return {
+    [CALL_API]: {
+      endpoint: 'chapters/',
+      post: true,
+      body: data,
+      authenticated: true,
+      types: [CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE]
+    }
+  }
+}

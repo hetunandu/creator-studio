@@ -3,7 +3,10 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
   LOGOUT_SUCCESS,
   SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE,
-  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE, SET_ACTIVE_SUBJECT } from './actions'
+  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE, SET_ACTIVE_SUBJECT,
+  CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
+  CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
+} from './actions'
 
 
 // The auth reducer. The starting state sets authentication
@@ -87,5 +90,46 @@ export const subjects = (state = {
       
       default:
         return state
+    }
+  }
+
+  export const chapters = (state = {
+    isFetching: false,
+    list: []
+  }, action) => {
+    switch(action.type){
+      case CHAPTERS_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true,
+          errorMessage: ''
+        })
+      case CHAPTERS_SUCCESS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: action.response.message.chapters || [],
+          errorMessage: ''
+        })
+      case CHAPTERS_FAILURE:
+        return Object.assign({}, state, {
+          errorMessage: action.error,
+          isFetching: false
+        })
+
+      // Adding a Chapter
+      case CHAPTER_ADD_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      case CHAPTER_ADD_SUCCESS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: state.list.concat([action.response.message]),
+        })
+      case CHAPTER_ADD_FAILURE:
+        return Object.assign({}, state, {
+          isFetching: false
+        })
+      default:
+        return state 
     }
   }

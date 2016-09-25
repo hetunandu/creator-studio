@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 
-import { fetchSubjects, addSubject, setActiveSubject } from '../actions';
+import { fetchSubjects, addSubject, setActiveSubject, fetchChapters } from '../actions';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -41,6 +41,7 @@ const SelectSubject = React.createClass({
 
     handleSubjectChange(event, index, value){
         this.props.setActiveSubject(this.props.subjects.list[index])
+        this.props.fetchChapters(value)
     },
 
     handleAddSubject(){
@@ -63,7 +64,8 @@ const mapStateToProps = ({subjects}) => ({
 const mapDispatchToProps = dispatch => ({
     fetchSubjects: () => dispatch(fetchSubjects()),
     addSubject: new_name => dispatch(addSubject(new_name)),
-    setActiveSubject: subject => dispatch(setActiveSubject(subject))
+    setActiveSubject: subject => dispatch(setActiveSubject(subject)),
+    fetchChapters: subject_key => dispatch(fetchChapters(subject_key))
 })
 
 

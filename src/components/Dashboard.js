@@ -5,9 +5,6 @@ import {connect} from 'react-redux';
 import SelectSubject from './SelectSubject';
 import Chapters from './Chapters';
 
-// import TextField from 'material-ui/TextField';
-// import FlatButton from 'material-ui/FlatButton';
-
 import Divider from 'material-ui/Divider';
 
 const Dashboard = React.createClass({
