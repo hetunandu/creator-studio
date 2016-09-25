@@ -31,7 +31,8 @@ const Dashboard = React.createClass({
             <div>
                 <h1>Dashboard</h1>
                 <h3>Subjects</h3>
-                {this.props.subjects.isFetching && <p>Loading Subjects</p>}
+                {this.props.subjects.isFetching && <p>Loading Subjects...</p>}
+                <p>{this.props.subjects.errorMessage}</p>
                 <ul>
                 {
                     this.props.subjects.list.map( subject => 

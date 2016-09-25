@@ -59,6 +59,7 @@ export const subjects = (state = {
         })
       case SUBJECT_FAILURE:
         return Object.assign({}, state, {
+          errorMessage: action.error,
           isFetching: false
         })
 

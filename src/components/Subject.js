@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 
 const Subject = React.createClass({
     render(){
-        console.log(this.props)
         return (
             <h1>{this.props.subject.name}</h1>
         );
