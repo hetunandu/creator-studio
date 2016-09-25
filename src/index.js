@@ -12,7 +12,6 @@ import api from './api.js';
 import App from './App';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
-import Subject from './components/Subject';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -33,8 +32,7 @@ const routes = {
     component: App,
     childRoutes: [
         { path: '/login', component: Login },
-        { path: '/dashboard', component: Dashboard },
-        { path: '/dashboard/subjects/:subjectId', component: Subject },
+        { path: '/dashboard', component: Dashboard }
     ]
 };
 
