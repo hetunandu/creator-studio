@@ -3,7 +3,7 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
   LOGOUT_SUCCESS,
   SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE,
-  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE } from './actions'
+  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE, SET_ACTIVE_SUBJECT } from './actions'
 
 
 // The auth reducer. The starting state sets authentication
@@ -44,6 +44,7 @@ export const auth = (state = {
 
 export const subjects = (state = {
     isFetching: false,
+    active: {key: null},
     list: []
   }, action) => {
     switch(action.type){
@@ -77,6 +78,13 @@ export const subjects = (state = {
         return Object.assign({}, state, {
           isFetching: false
         })
+
+      // Setting an active subject
+      case SET_ACTIVE_SUBJECT:
+        return Object.assign({}, state, {
+          active: action.subject
+        })
+      
       default:
         return state
     }

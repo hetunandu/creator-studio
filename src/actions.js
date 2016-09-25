@@ -126,7 +126,7 @@ export function fetchSubjects() {
 export const SUBJECT_ADD_REQUEST = 'SUBJECT_ADD_REQUEST'
 export const SUBJECT_ADD_SUCCESS = 'SUBJECT_ADD_SUCCESS'
 export const SUBJECT_ADD_FAILURE = 'SUBJECT_ADD_FAILURE'
-
+export const SET_ACTIVE_SUBJECT  = 'SET_ACTIVE_SUBJECT'
 
 export function addSubject(subject) {
   return {
@@ -139,3 +139,5 @@ export function addSubject(subject) {
     }
   }
 }
+
+export const setActiveSubject = subject => ({type: SET_ACTIVE_SUBJECT, subject: subject})
