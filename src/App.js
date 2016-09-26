@@ -2,6 +2,9 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {notedTheme} from './notedTheme';
 import Navbar from './components/Navbar'; 
+import Login from './components/Login';
+
+import {connect} from 'react-redux';
 
 import './App.css';
 
@@ -14,7 +17,16 @@ const App =  React.createClass({
         <div className="App">
           <Navbar />
           <div className="main">
-            {this.props.children}           
+            {
+              this.props.auth.isAuthenticated ?
+              (
+                this.props.children
+              )
+              :
+              (
+                <Login />
+              )
+            }           
           </div> 
         </div>
       </MuiThemeProvider>
@@ -22,5 +34,8 @@ const App =  React.createClass({
   }
 });
 
+const mapStateToProps = ({auth}) => ({
+  auth
+})
 
-export default App;
+export default connect(mapStateToProps)(App);

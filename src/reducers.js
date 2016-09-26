@@ -3,7 +3,7 @@ import {
   LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
   LOGOUT_SUCCESS,
   SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE,
-  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE, SET_ACTIVE_SUBJECT,
+  SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE,
   CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
 } from './actions'
@@ -47,7 +47,6 @@ export const auth = (state = {
 
 export const subjects = (state = {
     isFetching: false,
-    active: {key: null},
     list: []
   }, action) => {
     switch(action.type){
@@ -82,12 +81,6 @@ export const subjects = (state = {
           isFetching: false
         })
 
-      // Setting an active subject
-      case SET_ACTIVE_SUBJECT:
-        return Object.assign({}, state, {
-          active: action.subject
-        })
-      
       default:
         return state
     }

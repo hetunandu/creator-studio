@@ -10,8 +10,8 @@ reducers.routing = routerReducer;
 import thunkMiddleware from 'redux-thunk';
 import api from './api.js';
 import App from './App';
-import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import SelectSubject from './components/SelectSubject';
+import Chapters from './components/Chapters';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -31,8 +31,13 @@ const routes = {
     path: '/',
     component: App,
     childRoutes: [
-        { path: '/login', component: Login },
-        { path: '/dashboard', component: Dashboard }
+        { 
+            path: '/subjects', 
+            component: SelectSubject, 
+            childRoutes: [
+                { path: '/subjects/:subject_key', component: Chapters }
+            ]
+        },
     ]
 };
 

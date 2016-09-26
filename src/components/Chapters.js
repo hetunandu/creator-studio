@@ -30,7 +30,7 @@ const Chapters = React.createClass({
             :
             (   
                 <div>
-                    <h3>Chapters in {this.props.subject.name} ( {this.props.chapters.list.length}  )</h3>
+                    <h3>Chapters ( {this.props.chapters.list.length}  )</h3>
                     <p>{this.props.chapters.errorMessage}</p>
                     <div>
                         <Paper zDepth={1} style={addChapterStyle}>
@@ -72,8 +72,8 @@ const Chapters = React.createClass({
     }
 });
 
-const mapStateToProps = ({subjects: {active}, chapters}) => ({
-    subject: active,
+const mapStateToProps = ({chapters}, {params: subject_key}) => ({
+    subject: subject_key,
     chapters
 })
 

@@ -7,7 +7,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {loginUser} from '../actions.js';
 
 import { connect } from 'react-redux';
-import {browserHistory} from 'react-router';
 
 
 const mapStateToProps = (state) => ({
@@ -18,12 +17,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const Login = React.createClass({
-    componentDidMount(){
-        if(this.props.auth.isAuthenticated === true){
-            browserHistory.push('/dashboard');
-        }
-    },
-
+   
     attemptLogin(){
         const email = this.refs.email.input.value
         const password = this.refs.password.input.value
@@ -35,7 +29,7 @@ const Login = React.createClass({
     render(){
         return (
             <Paper zDepth={2} style={{padding: 10, textAlign: 'center' }} >
-                <h1> Login Screen </h1>
+                <h1> Login to continue </h1>
                 <p style={{color: 'red'}}>{this.props.auth.errorMessage}</p>
                 <TextField
                     hintText="Email"

@@ -1,4 +1,3 @@
-import {browserHistory} from 'react-router';
 import { CALL_API } from './api';
 
 
@@ -63,8 +62,6 @@ export function loginUser(creds) {
             localStorage.setItem('login_token', json.message.token)
             // Dispatch the success action
             dispatch(receiveLogin(json.message.token))
-            browserHistory.push('/dashboard')
-
           }
         })
       .catch(err => console.log(err))
@@ -139,11 +136,6 @@ export function addSubject(subject) {
     }
   }
 }
-
-export const SET_ACTIVE_SUBJECT  = 'SET_ACTIVE_SUBJECT'
-
-export const setActiveSubject = subject => ({type: SET_ACTIVE_SUBJECT, subject})
-
 
 
 // Chapter Actions

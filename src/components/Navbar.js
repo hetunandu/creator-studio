@@ -1,8 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
-import {browserHistory} from 'react-router';
 
 
 const mapStateToProps = ({auth}) => ({
@@ -11,10 +9,6 @@ const mapStateToProps = ({auth}) => ({
 
 const Navbar = React.createClass({
 
-    goToLogin(evt) {
-        browserHistory.push('/login');
-    },
-
     render() {
     
         var rightIcon;
@@ -22,11 +16,8 @@ const Navbar = React.createClass({
             case true:
                 rightIcon = <p style={{color: 'white'}}>Hello, creator</p>
                 break;
-            case false:
-                rightIcon = <FlatButton onClick={this.goToLogin} label="Login" />
-                break;
             default:
-                rightIcon = <FlatButton onClick={this.goToLogin} label="Login" />
+                rightIcon = <p style={{color: 'white'}}>Not logged in</p>
                 break;
         }
 
