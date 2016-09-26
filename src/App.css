@@ -27,3 +27,20 @@ body{
 input[type=text]:focus:not([readonly]){
     box-shadow: none !important
 }
+
+.explanation-card{
+    padding: 10px;
+    font-size: 15px;
+}
+
+.explanation-card.reverse{
+    background-color: #333 !important;
+    color: white !important;
+}
+
+.explanation-form-input.concept-name{
+    display: block !important;
+    margin: 0 auto !important;
+    width: 90% !important;
+    
+}

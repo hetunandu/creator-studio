@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import NewConcept from './NewConcept';
+
 import {fetchConcepts} from '../actions';
 
 const Concepts = React.createClass({
@@ -11,11 +13,16 @@ const Concepts = React.createClass({
     render(){
         return (
             <div>
-                <h4>Current creating in '{this.props.concepts.chapter.name}'</h4>
+                <NewConcept />                
             </div>
         );
+    },
+
+    handleConceptAdd(){
+
     }
 })
+
 
 
 const mapStateToProps = ({concepts}, {params: {chapter_key} }) => ({
