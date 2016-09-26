@@ -37,6 +37,7 @@ const NewChapter = React.createClass({
                 actions={actions}
                 modal={false}
                 open={true}
+                contentStyle={{maxWidth: 400}}
                 onRequestClose={this.handleClose}
             >
                 <TextField ref="name" hintText="Type the name of the chapter" onChange={this.handleOnChange}/>
