@@ -6,8 +6,7 @@ import {fetchChapters, addChapter} from '../actions';
 import {browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
+import {Link} from 'react-router';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -35,11 +34,11 @@ const Chapters = React.createClass({
                         {
                             this.props.chapters.list.map(chapter =>
                                 <div className="col m3"  key={chapter.key}>
-                                    <Paper zDepth={1} className="chapter-card">
-                                        <h5>{chapter.name}</h5>
-                                        <Divider />
-                                        <FlatButton label="View" primary={true}/>
-                                    </Paper>
+                                    <Link to={ `/chapters/${chapter.key}/`}>
+                                        <Paper zDepth={1} className="chapter-card">
+                                            <h5>{chapter.name}</h5>
+                                        </Paper>
+                                    </Link>
                                 </div>
                             ) 
 

@@ -13,6 +13,7 @@ import App from './App';
 import SelectSubject from './components/SelectSubject';
 import Chapters from './components/Chapters';
 import NewChapter from './components/NewChapter';
+import Concepts from './components/Concepts';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -45,6 +46,10 @@ const routes = {
                 }
             ]
         },
+        {
+            path: '/chapters/:chapter_key',
+            component: Concepts
+        }
     ]
 };
 

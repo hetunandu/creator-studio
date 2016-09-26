@@ -172,3 +172,21 @@ export function addChapter(data) {
     }
   }
 }
+
+
+// Concept Actions
+
+export const CONCEPTS_REQUEST = 'CONCEPTS_REQUEST'
+export const CONCEPTS_SUCCESS = 'CONCEPTS_SUCCESS'
+export const CONCEPTS_FAILURE = 'CONCEPTS_FAILURE'
+
+
+export function fetchConcepts(chapter_key) {
+  return {
+    [CALL_API]: {
+      endpoint: `chapters/${chapter_key}`,
+      authenticated: true,
+      types: [CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE]
+    }
+  }
+}

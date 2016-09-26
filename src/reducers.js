@@ -6,6 +6,7 @@ import {
   SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE,
   CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
+  CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
 } from './actions'
 
 
@@ -120,6 +121,35 @@ export const subjects = (state = {
         })
       case CHAPTER_ADD_FAILURE:
         return Object.assign({}, state, {
+          isFetching: false
+        })
+      default:
+        return state 
+    }
+  }
+
+  // Concept Actions
+  export const concepts = (state = {
+      isFetching: false,
+      chapter: {},
+      list: []
+    }, action) => {
+    switch(action.type){
+      case CONCEPTS_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true,
+          errorMessage: ''
+        })
+      case CONCEPTS_SUCCESS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          chapter: action.response.message.chapter,
+          list: action.response.message.concepts || [],
+          errorMessage: ''
+        })
+      case CONCEPTS_FAILURE:
+        return Object.assign({}, state, {
+          errorMessage: action.error,
           isFetching: false
         })
       default:
