@@ -3,55 +3,49 @@ import {connect} from 'react-redux';
 
 import {fetchChapters, addChapter} from '../actions';
 
+import {browserHistory} from 'react-router';
+
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Divider from 'material-ui/Divider';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
 const Chapters = React.createClass({
 
+    componentDidMount(){
+        this.props.fetchChapters(this.props.subject)
+    },
+
     render(){
 
-        const addChapterStyle = {
-            width: 500,
-            padding: 10,
-            marginBottom: 10,
-        }
-
-        const chaperCardStyle = {
-            width: 300,
-            padding: 10,
-            marginTop: 10
-        }
-
+      
         let body = this.props.chapters.isFetching ? 
             ( <p>Loading notes...</p> )
             :
             (   
                 <div>
-                    <h3>Chapters ( {this.props.chapters.list.length}  )</h3>
-                    <p>{this.props.chapters.errorMessage}</p>
-                    <div>
-                        <Paper zDepth={1} style={addChapterStyle}>
-                            <h4>Create new chapter</h4>
-                            <TextField ref="new_chapter_name" hintText="Type the name of the chapter"/>
-                            <FlatButton label="Create" primary={true} onClick={this.handleAddChapter} />
-                        </Paper>
-                    </div>
-                    <Divider />
-                    <div style={{ display: 'flex' }}>
+                    <FloatingActionButton mini={true} className="right" onClick={this.handleAddChapter}>
+                        <ContentAdd />
+                    </FloatingActionButton>
+                    <h4 className="center">Chapters ( {this.props.chapters.list.length}  )</h4>
+                    <p className="center red-text">{this.props.chapters.errorMessage}</p>
+                    <div className="row">
                         {
                             this.props.chapters.list.map(chapter =>
-                                <Paper zDepth={1} style={chaperCardStyle} key={chapter.key}>
-                                    <h4>{chapter.name}</h4>
-                                    <Divider />
-                                    <FlatButton label="View" primary={true}/>
-                                </Paper>
+                                <div className="col m3"  key={chapter.key}>
+                                    <Paper zDepth={1} className="chapter-card">
+                                        <h5>{chapter.name}</h5>
+                                        <Divider />
+                                        <FlatButton label="View" primary={true}/>
+                                    </Paper>
+                                </div>
                             ) 
 
                         }
                     </div>
+                    {this.props.children}
                 </div>
             )
 
@@ -64,15 +58,12 @@ const Chapters = React.createClass({
 
 
     handleAddChapter(){
-        let new_name = this.refs.new_chapter_name.input.value.trim()
-        
-        this.props.addChapter({name: new_name, subject_key: this.props.subject.key})
-
-        this.refs.new_chapter_name.input.value = "";
+        let link = `/subjects/${this.props.subject}/chapters/add`;
+        browserHistory.push(link)
     }
 });
 
-const mapStateToProps = ({chapters}, {params: subject_key}) => ({
+const mapStateToProps = ({chapters}, {params: {subject_key}}) => ({
     subject: subject_key,
     chapters
 })

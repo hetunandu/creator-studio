@@ -26,7 +26,7 @@ const SelectSubject = React.createClass({
                         { 
                             this.props.subjects.list.map( subject => 
                                 <div 
-                                    className="col m3 s12" 
+                                    className="col m4 s12" 
                                     key={subject.key} 
                                     onClick={this.handleSubjectChange.bind(this, subject.key)}
                                 >

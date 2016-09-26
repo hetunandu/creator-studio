@@ -42,7 +42,7 @@ const Login = React.createClass({
                     ref="password"
                 />
                 <br />
-                <RaisedButton label="Login" primary={true} onClick={this.attemptLogin} />
+                <RaisedButton label="Login" primary={true} onClick={this.attemptLogin} keyboardFocused={true} />
             </Paper>
         );
     }

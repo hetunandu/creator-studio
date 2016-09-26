@@ -12,6 +12,7 @@ import api from './api.js';
 import App from './App';
 import SelectSubject from './components/SelectSubject';
 import Chapters from './components/Chapters';
+import NewChapter from './components/NewChapter';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -35,7 +36,13 @@ const routes = {
             path: '/subjects', 
             component: SelectSubject, 
             childRoutes: [
-                { path: '/subjects/:subject_key', component: Chapters }
+                { 
+                    path: '/subjects/:subject_key', 
+                    component: Chapters,
+                    childRoutes: [
+                        {path: '/subjects/:subject_key/chapters/add', component: NewChapter}
+                    ] 
+                }
             ]
         },
     ]
