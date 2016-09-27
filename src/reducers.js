@@ -7,6 +7,8 @@ import {
   CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
+  NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME, 
+  NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE
 } from './actions'
 
 
@@ -151,6 +153,47 @@ export const subjects = (state = {
         return Object.assign({}, state, {
           errorMessage: action.error,
           isFetching: false
+        })
+      default:
+        return state 
+    }
+  }
+
+
+  // New Concept Actions
+  export const newConcept = (state = {
+      stepIndex: 0,
+      chapter_key: null,
+      name: '',
+      explanation: [],
+      references: [],
+      tips: [],
+      questions: []
+    }, action) => {
+    switch(action.type){
+      case NEW_CONCEPT_CHANGE_STEP:
+        return Object.assign({}, state, {
+          stepIndex: action.stepIndex
+        })
+      case NEW_CONCEPT_SET_NAME:
+        return Object.assign({}, state, {
+          name: action.name
+        })
+      case NEW_CONCEPT_ADD_EXP_NODE:
+        return Object.assign({}, state, {
+          explanation: state.explanation.concat([action.node])
+        })
+      case NEW_CONCEPT_UPDATE_EXP_NODE:
+        let explanation = state.explanation
+        explanation[action.index] = action.node
+        return Object.assign({}, state, {
+          explanation
+        })
+      case NEW_CONCEPT_REMOVE_EXP_NODE:
+        return Object.assign({}, state, {
+          explanation: state.explanation
+                        .slice(0, action.index)
+                        .concat(state.explanation.slice(action.index + 1))
         })
       default:
         return state 

@@ -190,3 +190,18 @@ export function fetchConcepts(chapter_key) {
     }
   }
 }
+
+
+// New Concept actions
+
+export const NEW_CONCEPT_CHANGE_STEP = 'NEW_CONCEPT_CHANGE_STEP'
+export const NEW_CONCEPT_SET_NAME = 'NEW_CONCEPT_SET_NAME'
+export const NEW_CONCEPT_ADD_EXP_NODE = 'NEW_CONCEPT_ADD_EXP_NODE'
+export const NEW_CONCEPT_UPDATE_EXP_NODE = 'NEW_CONCEPT_UPDATE_EXP_NODE'
+export const NEW_CONCEPT_REMOVE_EXP_NODE = 'NEW_CONCEPT_REMOVE_EXP_NODE'
+
+export const changeStep = stepIndex => ({type: NEW_CONCEPT_CHANGE_STEP, stepIndex})
+export const setConceptName = name => ({type: NEW_CONCEPT_SET_NAME, name})
+export const addExpNode = node => ({type: NEW_CONCEPT_ADD_EXP_NODE, node})
+export const updateExpNode = (node, index) => ({type: NEW_CONCEPT_UPDATE_EXP_NODE, node, index})
+export const removeExpNode = index => ({type: NEW_CONCEPT_REMOVE_EXP_NODE, index})

@@ -14,6 +14,7 @@ import SelectSubject from './components/SelectSubject';
 import Chapters from './components/Chapters';
 import NewChapter from './components/NewChapter';
 import Concepts from './components/Concepts';
+import NewConcept from './components/NewConcept';
 
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -32,6 +33,7 @@ const history = syncHistoryWithStore(browserHistory, store);
 const routes = {
     path: '/',
     component: App,
+    indexRoute: { component: SelectSubject },
     childRoutes: [
         { 
             path: '/subjects', 
@@ -48,8 +50,9 @@ const routes = {
         },
         {
             path: '/chapters/:chapter_key',
-            component: Concepts
-        }
+            component: Concepts,
+        },
+         { path: '/chapters/:chapter_key/new', component: NewConcept}
     ]
 };
 

@@ -29,7 +29,7 @@ const Login = React.createClass({
     render(){
         return (
             <Paper zDepth={2} style={{padding: 10, textAlign: 'center' }} >
-                <h1> Login to continue </h1>
+                <h3> Login to continue </h3>
                 <p style={{color: 'red'}}>{this.props.auth.errorMessage}</p>
                 <TextField
                     hintText="Email"
