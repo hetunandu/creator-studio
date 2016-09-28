@@ -13,7 +13,7 @@ const ConceptPreview = React.createClass({
                 case 2:
                     return "concept-card questions"
                 default:
-                    return "concept-card"
+                    return "concept-card explanation"
             }   
         }
         

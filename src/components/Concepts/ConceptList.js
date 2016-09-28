@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
-import {fetchConcepts} from '../actions';
+import {fetchConcepts} from '../../actions';
 
 import ConceptPreview from './ConceptPreview';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
-const Concepts = React.createClass({
+const ConceptList = React.createClass({
 
     componentWillMount(){
         this.props.fetchConcepts(this.props.chapter_key)
@@ -50,4 +50,4 @@ const mapDispatchToProps = dispatch => ({
     fetchConcepts: chapter_key => dispatch(fetchConcepts(chapter_key))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Concepts)
+export default connect(mapStateToProps, mapDispatchToProps)(ConceptList)

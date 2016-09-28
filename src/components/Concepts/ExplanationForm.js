@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setConceptName, addExpNode, updateExpNode, removeExpNode} from '../actions'
+import {setConceptName, addExpNode, updateExpNode, removeExpNode} from '../../actions'
 
 
 import IconButton from 'material-ui/IconButton';

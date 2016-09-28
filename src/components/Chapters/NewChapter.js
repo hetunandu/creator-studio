@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import {addChapter} from '../actions';
+import {addChapter} from '../../actions';
 
 const NewChapter = React.createClass({
 

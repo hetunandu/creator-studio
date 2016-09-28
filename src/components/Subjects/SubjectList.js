@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {browserHistory} from 'react-router';
 import Divider from 'material-ui/Divider';
-import { fetchSubjects, addSubject, fetchChapters } from '../actions';
+import { fetchSubjects, addSubject, fetchChapters } from '../../actions';
 import SubjectCard from './SubjectCard';
 
-const SelectSubject = React.createClass({
+const SubjectList = React.createClass({
 
 
     componentDidMount(){
@@ -86,4 +86,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(SelectSubject)
+export default connect(mapStateToProps,mapDispatchToProps)(SubjectList)

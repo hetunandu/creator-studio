@@ -2,7 +2,7 @@ import React from 'react';
 
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import {changeStep, saveConcept} from '../actions';
+import {changeStep, saveConcept} from '../../actions';
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';

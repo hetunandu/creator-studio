@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {fetchChapters, addChapter} from '../actions';
+import {fetchChapters, addChapter} from '../../actions';
 
 import {browserHistory} from 'react-router';
 
@@ -11,7 +11,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
 
-const Chapters = React.createClass({
+const ChapterList = React.createClass({
 
     componentDidMount(){
         this.props.fetchChapters(this.props.subject)
@@ -72,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
     addChapter: data => dispatch(addChapter(data))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chapters)
+export default connect(mapStateToProps, mapDispatchToProps)(ChapterList)
