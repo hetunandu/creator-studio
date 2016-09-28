@@ -8,7 +8,7 @@ import * as reducers from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import api from './api.js';
 import App from './App';
-import SelectSubject from './components/Subjects/SelectSubject';
+import SubjectList from './components/Subjects/SubjectList';
 import ChapterList from './components/Chapters/ChapterList';
 import NewChapter from './components/Chapters/NewChapter';
 import ConceptList from './components/Concepts/ConceptList';
@@ -32,11 +32,11 @@ const history = syncHistoryWithStore(browserHistory, store);
 const routes = {
     path: '/',
     component: App,
-    indexRoute: { component: SelectSubject },
+    indexRoute: { component: SubjectList },
     childRoutes: [
         { 
             path: '/subjects', 
-            component: SelectSubject, 
+            component: SubjectList, 
             childRoutes: [
                 { 
                     path: '/subjects/:subject_key', 
@@ -49,7 +49,7 @@ const routes = {
         },
         {
             path: '/chapters/:chapter_key',
-            component: Concepts,
+            component: ConceptList,
         },
          { path: '/chapters/:chapter_key/new', component: NewConcept}
     ]
