@@ -18,22 +18,34 @@ const ConceptList = React.createClass({
     render(){
         return (
             <div>
-                <Link to={`/chapters/${this.props.chapter_key}/new`}>
-                    <FloatingActionButton mini={true} className="right">
-                        <ContentAdd />
-                    </FloatingActionButton>
-                </Link>
-                <h4>Concepts in {this.props.concepts.chapter.name}</h4>
-                <div className="row">
-                    { 
-                        this.props.concepts.list.map( concept => 
-                            <div className="col m3" key={concept.key}>
-                                <ConceptPreview concept={concept}/>
-                            </div>   
-                        )    
-                    }
-                </div>
-                {this.props.children}             
+                {
+                    this.props.concepts.isFetching ? 
+                    (
+                        <p>Loading concepts...</p>
+                    )
+                    :
+                    (   
+                        <div>
+                            <Link to={`/chapters/${this.props.chapter_key}/new`}>
+                                <FloatingActionButton mini={true} className="right">
+                                    <ContentAdd />
+                                </FloatingActionButton>
+                            </Link>
+                            <h4>Concepts in {this.props.concepts.chapter.name}</h4>
+                            <p className="red-text">{this.props.concepts.errorMessage}</p>
+                            <div className="row">
+                                { 
+                                    this.props.concepts.list.map( concept => 
+                                        <div className="col m3" key={concept.key}>
+                                            <ConceptPreview concept={concept}/>
+                                        </div>   
+                                    )    
+                                }
+                            </div>
+                        </div>
+                    )
+                }
+                             
             </div>
         );
     }

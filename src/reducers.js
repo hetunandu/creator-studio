@@ -9,7 +9,8 @@ import {
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
   NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME, 
   NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE,
-  CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE
+  CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE,
+  NEW_CONCEPT_ADD_REF, NEW_CONCEPT_ADD_TIP, NEW_CONCEPT_REMOVE_REF, NEW_CONCEPT_REMOVE_TIP
 } from './actions'
 
 
@@ -197,6 +198,26 @@ export const subjects = (state = {
           explanation: state.explanation
                         .slice(0, action.index)
                         .concat(state.explanation.slice(action.index + 1))
+        })
+      case NEW_CONCEPT_ADD_REF:
+        return Object.assign({}, state, {
+          references: state.references.concat([action.data])
+        })
+      case NEW_CONCEPT_REMOVE_REF:
+        return Object.assign({}, state, {
+          references: state.references
+                        .slice(0, action.index)
+                        .concat(state.references.slice(action.index + 1))
+        })
+      case NEW_CONCEPT_ADD_TIP:
+        return Object.assign({}, state, {
+          tips: state.tips.concat([action.data])
+        })
+      case NEW_CONCEPT_REMOVE_TIP:
+        return Object.assign({}, state, {
+          tips: state.tips
+                        .slice(0, action.index)
+                        .concat(state.tips.slice(action.index + 1))
         })
       case CONCEPT_ADD_REQUEST:
         return Object.assign({}, state, {

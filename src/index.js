@@ -51,7 +51,10 @@ const routes = {
             path: '/chapters/:chapter_key',
             component: ConceptList,
         },
-         { path: '/chapters/:chapter_key/new', component: NewConcept}
+         { 
+            path: '/chapters/:chapter_key/new', 
+            component: NewConcept
+        }
     ]
 };
 

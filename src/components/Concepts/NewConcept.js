@@ -8,6 +8,9 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import ExplanationForm from './ExplanationForm';
+import ReferenceForm from './ReferenceForm';
+import QuestionsForm from './QuestionsForm';
+
 import NewConceptPreview from './NewConceptPreview'
 
 import {
@@ -28,7 +31,7 @@ const NewConcept = React.createClass({
                 name: this.props.newConcept.name,
                 chapter_key: this.props.chapter_key,
                 explanation: this.props.newConcept.explanation,
-                references: this.props.references,
+                references: this.props.newConcept.references,
                 tips: this.props.newConcept.tips
             })
 
@@ -49,13 +52,11 @@ const NewConcept = React.createClass({
                 )
             case 1:
                 return (
-                    <h4 className="center">Other details</h4>
+                    <ReferenceForm />
                 )
             case 2:
                 return (
-                    <div className="row">
-                        <h4 className="center">Questions</h4>
-                    </div>
+                    <QuestionsForm />
                 )
             default:
                 return 'You\'re a long way from home sonny jim!';
@@ -68,6 +69,19 @@ const NewConcept = React.createClass({
 
         return(
             <div>
+                <div style={{float: 'right'}}>
+                    <FlatButton
+                        label="Back"
+                        disabled={stepIndex === 0}
+                        onTouchTap={this.handlePrev}
+                        style={{marginRight: 12}}
+                    />
+                    <RaisedButton
+                        label={stepIndex === 2 ? 'Save' : 'Next'}
+                        primary={true}
+                        onTouchTap={this.handleNext}
+                    />
+                </div>
                 <p className="red-text">{this.props.newConcept.errorMessage}</p>
                 <div style={{width: '90%', margin: 'auto'}}>
                     <Stepper activeStep={stepIndex}>
@@ -86,20 +100,7 @@ const NewConcept = React.createClass({
                             <NewConceptPreview  />
                         </div>
                         <div className="col m8">
-                            <div style={{float: 'right'}}>
-                                <FlatButton
-                                    label="Back"
-                                    disabled={stepIndex === 0}
-                                    onTouchTap={this.handlePrev}
-                                    style={{marginRight: 12}}
-                                />
-                                <RaisedButton
-                                    label={stepIndex === 2 ? 'Save' : 'Next'}
-                                    primary={true}
-                                    onTouchTap={this.handleNext}
-                                />
-                            </div>
-                            <div>{this.getStepContent(stepIndex)}</div>                            
+                            {this.getStepContent(stepIndex)}                            
                         </div>
                     </div>
                 </div>
