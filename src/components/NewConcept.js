@@ -2,7 +2,7 @@ import React from 'react';
 
 import {browserHistory} from 'react-router';
 import {connect} from 'react-redux';
-import {changeStep} from '../actions';
+import {changeStep, saveConcept} from '../actions';
 
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -23,7 +23,15 @@ const NewConcept = React.createClass({
         if(this.props.newConcept.stepIndex < 2){
             this.props.changeStep(this.props.newConcept.stepIndex + 1)
         }else{
-            // Mark as finished
+            // Save the concept
+            this.props.saveConcept({
+                name: this.props.newConcept.name,
+                chapter_key: this.props.chapter_key,
+                explanation: this.props.newConcept.explanation,
+                references: this.props.references,
+                tips: this.props.newConcept.tips
+            })
+
         }
     },
 
@@ -60,6 +68,7 @@ const NewConcept = React.createClass({
 
         return(
             <div>
+                <p className="red-text">{this.props.newConcept.errorMessage}</p>
                 <div style={{width: '90%', margin: 'auto'}}>
                     <Stepper activeStep={stepIndex}>
                         <Step>
@@ -113,7 +122,8 @@ const mapStateToProps = ({concepts, newConcept}, {params: {chapter_key}}) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    changeStep: (stepIndex) => {dispatch(changeStep(stepIndex))}
+    changeStep: (stepIndex) => {dispatch(changeStep(stepIndex))},
+    saveConcept: (newConcept) => {dispatch(saveConcept(newConcept))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewConcept)

@@ -4,9 +4,10 @@ import {Link} from 'react-router';
 
 import {fetchConcepts} from '../actions';
 
+import ConceptPreview from './ConceptPreview';
+
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-
 
 const Concepts = React.createClass({
 
@@ -23,13 +24,15 @@ const Concepts = React.createClass({
                     </FloatingActionButton>
                 </Link>
                 <h4>Concepts in {this.props.concepts.chapter.name}</h4>
-                { 
-                    this.props.concepts.list.map( concept => 
-                        <h4 key={concept.key}>{concept.name}</h4>    
-                    )
-
-                     
-                }
+                <div className="row">
+                    { 
+                        this.props.concepts.list.map( concept => 
+                            <div className="col m4" key={concept.key}>
+                                <ConceptPreview concept={concept}/>
+                            </div>   
+                        )    
+                    }
+                </div>
                 {this.props.children}             
             </div>
         );

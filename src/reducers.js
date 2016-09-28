@@ -8,7 +8,8 @@ import {
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
   NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME, 
-  NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE
+  NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE,
+  CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE
 } from './actions'
 
 
@@ -146,7 +147,7 @@ export const subjects = (state = {
         return Object.assign({}, state, {
           isFetching: false,
           chapter: action.response.message.chapter,
-          list: action.response.message.concepts || [],
+          list: action.response.message.chapter.concepts,
           errorMessage: ''
         })
       case CONCEPTS_FAILURE:
@@ -162,6 +163,8 @@ export const subjects = (state = {
 
   // New Concept Actions
   export const newConcept = (state = {
+      isSaving: false,
+      errorMessage: '',
       stepIndex: 0,
       chapter_key: null,
       name: '',
@@ -194,6 +197,26 @@ export const subjects = (state = {
           explanation: state.explanation
                         .slice(0, action.index)
                         .concat(state.explanation.slice(action.index + 1))
+        })
+      case CONCEPT_ADD_REQUEST:
+        return Object.assign({}, state, {
+          isSaving: true
+        })
+      case CONCEPT_ADD_SUCCESS:
+        return Object.assign({}, state, {
+          isSaving: false,
+          stepIndex: 0,
+          chapter_key: null,
+          name: '',
+          explanation: [],
+          references: [],
+          tips: [],
+          questions: []
+        })
+      case CONCEPT_ADD_FAILURE:
+        return Object.assign({}, state, {
+          isSaving: false,
+          errorMessage: action.errorMessage
         })
       default:
         return state 

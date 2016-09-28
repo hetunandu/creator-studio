@@ -5,10 +5,11 @@ import {setConceptName, addExpNode, updateExpNode, removeExpNode} from '../actio
 
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
-import TextIcon from 'material-ui/svg-icons/editor/mode-edit';
+import TextIcon from 'material-ui/svg-icons/editor/short-text';
 import ImageIcon from 'material-ui/svg-icons/editor/insert-photo';
+import QuoteIcon from 'material-ui/svg-icons/editor/format-quote';
 import RemoveIcon from 'material-ui/svg-icons/navigation/close';
-import PointersIcon from 'material-ui/svg-icons/editor/format-list-numbered'
+import PointersIcon from 'material-ui/svg-icons/editor/format-list-numbered';
 
 
 const ExplanationForm  = React.createClass({
@@ -17,20 +18,13 @@ const ExplanationForm  = React.createClass({
         this.props.setConceptName(event.target.value)
     },
 
-    addParaField(){
+    addField(type){
         this.props.addExpNode({
-            type: 'para',
+            type: type,
             data: ''
         })
     },
-
-    addImageField(){
-        this.props.addExpNode({
-            type: 'image',
-            data: ''
-        })
-    },
-
+   
     renderNodes(explanation){
         return explanation.map( (node, i) =>{ 
             switch(node.type){
@@ -60,6 +54,25 @@ const ExplanationForm  = React.createClass({
                             <p>({i})Image</p>
                             <TextField 
                                 hintText="Image link"
+                                value={node.data}
+                                id={`${node.type}_${i}`}
+                                onChange={this.handleExplanationNodeChange}
+                            />
+                            <IconButton 
+                                tooltip="Remove"
+                                onClick={ () => this.removeNode(i)}
+                            >
+                                <RemoveIcon className="red-text"/>
+                            </IconButton>
+                            <br />
+                        </div>
+                    )
+                case 'quote':
+                    return (
+                        <div key={i}>
+                            <p>({i} Quote)</p>
+                            <TextField 
+                                hintText="Type here..."
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
@@ -111,13 +124,16 @@ const ExplanationForm  = React.createClass({
                         this.renderNodes(this.props.newConcept.explanation)
                     }                  
                     <div className="btns">
-                        <IconButton tooltip="Para" onClick={this.addParaField}>
+                        <IconButton tooltip="Para" onClick={() => this.addField('para')}>
                             <TextIcon />
                         </IconButton>
-                        <IconButton tooltip="Image" onClick={this.addImageField}>
+                        <IconButton tooltip="Quote" onClick={() => this.addField('quote')}>
+                            <QuoteIcon />
+                        </IconButton>
+                        <IconButton tooltip="Image" onClick={() =>this.addField('image')}>
                             <ImageIcon />
                         </IconButton>
-                        <IconButton tooltip="Pointers" onClick={this.addPointerField}>
+                        <IconButton tooltip="Pointers" onClick={() => this.addField('pointers')}>
                             <PointersIcon />
                         </IconButton>
                     </div>

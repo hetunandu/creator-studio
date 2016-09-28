@@ -205,3 +205,21 @@ export const setConceptName = name => ({type: NEW_CONCEPT_SET_NAME, name})
 export const addExpNode = node => ({type: NEW_CONCEPT_ADD_EXP_NODE, node})
 export const updateExpNode = (node, index) => ({type: NEW_CONCEPT_UPDATE_EXP_NODE, node, index})
 export const removeExpNode = index => ({type: NEW_CONCEPT_REMOVE_EXP_NODE, index})
+
+
+export const CONCEPT_ADD_REQUEST = 'CONCEPT_ADD_REQUEST'
+export const CONCEPT_ADD_SUCCESS = 'CONCEPT_ADD_SUCCESS'
+export const CONCEPT_ADD_FAILURE = 'CONCEPT_ADD_FAILURE'
+
+
+export function saveConcept(newConcept) {
+  return {
+    [CALL_API]: {
+      endpoint: `concepts/`,
+      post: true,
+      body: newConcept,
+      authenticated: true,
+      types: [CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE]
+    }
+  }
+}
