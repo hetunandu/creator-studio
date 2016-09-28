@@ -27,7 +27,7 @@ const Concepts = React.createClass({
                 <div className="row">
                     { 
                         this.props.concepts.list.map( concept => 
-                            <div className="col m4" key={concept.key}>
+                            <div className="col m3" key={concept.key}>
                                 <ConceptPreview concept={concept}/>
                             </div>   
                         )    
@@ -36,10 +36,6 @@ const Concepts = React.createClass({
                 {this.props.children}             
             </div>
         );
-    },
-
-    handleConceptAdd(){
-
     }
 })
 

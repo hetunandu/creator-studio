@@ -35,6 +35,7 @@ input[type=text]:focus:not([readonly]){
     width: 300px;
     margin: auto;
     overflow-y: scroll;
+    margin-bottom: 10px;
 }
 
 .concept-card.explanation{
