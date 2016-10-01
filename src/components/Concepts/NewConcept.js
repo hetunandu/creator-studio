@@ -32,7 +32,8 @@ const NewConcept = React.createClass({
                 chapter_key: this.props.chapter_key,
                 explanation: this.props.newConcept.explanation,
                 references: this.props.newConcept.references,
-                tips: this.props.newConcept.tips
+                tips: this.props.newConcept.tips,
+                questions: this.props.newConcept.questions
             })
 
         }
@@ -43,7 +44,7 @@ const NewConcept = React.createClass({
             this.props.changeStep(this.props.newConcept.stepIndex - 1)
         }
     },
-    
+
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
@@ -100,12 +101,12 @@ const NewConcept = React.createClass({
                             <NewConceptPreview  />
                         </div>
                         <div className="col m8">
-                            {this.getStepContent(stepIndex)}                            
+                            {this.getStepContent(stepIndex)}
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         )
     },
 
@@ -115,8 +116,7 @@ const NewConcept = React.createClass({
 })
 
 
-const mapStateToProps = ({concepts, newConcept}, {params: {chapter_key}}) => ({
-    concepts,
+const mapStateToProps = ({newConcept}, {params: {chapter_key}}) => ({
     newConcept,
     chapter_key
 })

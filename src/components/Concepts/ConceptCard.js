@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 
-const ConceptPreview = React.createClass({
+const ConceptCard = React.createClass({
     render(){
         const concept = this.props.concept
         let classes
@@ -103,4 +103,4 @@ const ConceptPreview = React.createClass({
     }
 })
 
-export default ConceptPreview
+export default ConceptCard

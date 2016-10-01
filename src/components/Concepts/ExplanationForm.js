@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setConceptName, addExpNode, updateExpNode, removeExpNode} from '../../actions'
-
+import PointerModal from './PointerModal'
 
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
@@ -14,6 +14,12 @@ import PointersIcon from 'material-ui/svg-icons/editor/format-list-numbered';
 
 const ExplanationForm  = React.createClass({
 
+    getInitialState(){
+        return{
+            'pointerModal': false,
+        }
+    },
+
     handleConceptNameChange(event){
         this.props.setConceptName(event.target.value)
     },
@@ -22,6 +28,18 @@ const ExplanationForm  = React.createClass({
         this.props.addExpNode({
             type: type,
             data: ''
+        })
+    },
+
+    addPointer(){
+        this.setState({
+            'pointerModal': true
+        })
+    },
+
+    closeModal(){
+        this.setState({
+            'pointerModal': false
         })
     },
    
@@ -133,10 +151,15 @@ const ExplanationForm  = React.createClass({
                         <IconButton tooltip="Image" onClick={() =>this.addField('image')}>
                             <ImageIcon />
                         </IconButton>
-                        <IconButton tooltip="Pointers" onClick={() => this.addField('pointers')}>
+                        <IconButton tooltip="Pointers" onClick={this.addPointer}>
                             <PointersIcon />
                         </IconButton>
                     </div>
+                    <PointerModal 
+                        open={this.state.pointerModal}
+
+                        closeModal={this.closeModal}
+                    />
                 </div>
             </div>
         )

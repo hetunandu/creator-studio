@@ -1,8 +1,8 @@
 import {connect} from 'react-redux'
-import ConceptPreview from './ConceptPreview'
+import ConceptCard from './ConceptCard'
 
 const mapStateToProps = ({newConcept}) => ({
     concept: newConcept
 })
 
-export default connect(mapStateToProps)(ConceptPreview)
+export default connect(mapStateToProps)(ConceptCard)

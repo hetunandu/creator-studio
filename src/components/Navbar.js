@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import {browserHistory} from 'react-router';
 import { connect } from 'react-redux';
 
 
@@ -10,7 +11,7 @@ const mapStateToProps = ({auth}) => ({
 const Navbar = React.createClass({
 
     render() {
-    
+
         var rightIcon;
         switch(this.props.auth.isAuthenticated){
             case true:
@@ -23,13 +24,16 @@ const Navbar = React.createClass({
 
         return (
             <AppBar
+								onTitleTouchTap={() => browserHistory.push('/')}
+								titleStyle={{cursor: 'pointer'}}
+								showMenuIconButton={false}
                 title="Noted Creator Studio"
                 iconElementRight={rightIcon}
             />
         );
 
     }
-    
+
 });
 
 export default connect(mapStateToProps)(Navbar);

@@ -1,16 +1,17 @@
 
-import { 
-  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, 
+import {
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
   LOGOUT_SUCCESS,
   SUBJECT_REQUEST, SUBJECT_SUCCESS, SUBJECT_FAILURE,
   SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE,
   CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
-  NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME, 
+  NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME,
   NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE,
   CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE,
-  NEW_CONCEPT_ADD_REF, NEW_CONCEPT_ADD_TIP, NEW_CONCEPT_REMOVE_REF, NEW_CONCEPT_REMOVE_TIP
+  NEW_CONCEPT_ADD_REF, NEW_CONCEPT_ADD_TIP, NEW_CONCEPT_REMOVE_REF, NEW_CONCEPT_REMOVE_TIP,
+  NEW_CONCEPT_ADD_QUESTION, NEW_CONCEPT_REMOVE_QUESTION
 } from './actions'
 
 
@@ -128,7 +129,7 @@ export const subjects = (state = {
           isFetching: false
         })
       default:
-        return state 
+        return state
     }
   }
 
@@ -157,7 +158,7 @@ export const subjects = (state = {
           isFetching: false
         })
       default:
-        return state 
+        return state
     }
   }
 
@@ -219,6 +220,14 @@ export const subjects = (state = {
                         .slice(0, action.index)
                         .concat(state.tips.slice(action.index + 1))
         })
+      case NEW_CONCEPT_ADD_QUESTION:
+        return Object.assign({}, state, {
+          questions: state.questions.concat([action.question])
+        })
+      case NEW_CONCEPT_REMOVE_QUESTION:
+        return Object.assign({}, state, {
+          questions: state.questions.filter( (question) => question !== action.question )
+        })
       case CONCEPT_ADD_REQUEST:
         return Object.assign({}, state, {
           isSaving: true
@@ -240,6 +249,6 @@ export const subjects = (state = {
           errorMessage: action.errorMessage
         })
       default:
-        return state 
+        return state
     }
   }

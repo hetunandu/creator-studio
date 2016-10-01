@@ -40,9 +40,9 @@ export function loginUser(creds) {
 
   let config = {
     method: 'POST',
-    headers: { 
+    headers: {
         Accept: 'application/json',
-        'Content-Type':'application/json' 
+        'Content-Type':'application/json'
     },
     body: JSON.stringify(creds)
   }
@@ -221,6 +221,13 @@ export const NEW_CONCEPT_REMOVE_TIP = 'NEW_CONCEPT_REMOVE_TIP'
 
 export const addTip = data => ({type: NEW_CONCEPT_ADD_TIP, data})
 export const removeTip = index => ({type: NEW_CONCEPT_REMOVE_TIP, index})
+
+
+export const NEW_CONCEPT_ADD_QUESTION = 'NEW_CONCEPT_ADD_QUESTION'
+export const NEW_CONCEPT_REMOVE_QUESTION = 'NEW_CONCEPT_REMOVE_QUESTION'
+
+export const addQuestion = question => ({type: NEW_CONCEPT_ADD_QUESTION, question})
+export const removeQuestion = question => ({type: NEW_CONCEPT_REMOVE_QUESTION, question})
 
 export const CONCEPT_ADD_REQUEST = 'CONCEPT_ADD_REQUEST'
 export const CONCEPT_ADD_SUCCESS = 'CONCEPT_ADD_SUCCESS'

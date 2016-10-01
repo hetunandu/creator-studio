@@ -34,16 +34,16 @@ const routes = {
     component: App,
     indexRoute: { component: SubjectList },
     childRoutes: [
-        { 
-            path: '/subjects', 
-            component: SubjectList, 
+        {
+            path: '/subjects',
+            component: SubjectList,
             childRoutes: [
-                { 
-                    path: '/subjects/:subject_key', 
+                {
+                    path: '/subjects/:subject_key',
                     component: ChapterList,
                     childRoutes: [
                         {path: '/subjects/:subject_key/chapters/add', component: NewChapter}
-                    ] 
+                    ]
                 }
             ]
         },
@@ -51,8 +51,8 @@ const routes = {
             path: '/chapters/:chapter_key',
             component: ConceptList,
         },
-         { 
-            path: '/chapters/:chapter_key/new', 
+         {
+            path: '/chapters/:chapter_key/new',
             component: NewConcept
         }
     ]
@@ -69,7 +69,7 @@ const render = () => {
       <Router history={history} routes={routes} >
       </Router>
     </Provider>,
-    document.getElementById('root')); 
+    document.getElementById('root'));
 }
 
 // First render
