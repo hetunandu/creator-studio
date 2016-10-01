@@ -1,4 +1,4 @@
-const BASE_URL = 'https://noted-api.appspot.com'
+const BASE_URL = 'https://noted-api.appspot.com/'
 
 
 // The function that will set the appropriate config and call the API

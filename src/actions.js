@@ -52,7 +52,7 @@ export function loginUser(creds) {
     dispatch(requestLogin(creds))
 
 
-    return fetch('http://127.0.0.1:8080/users/login', config)
+    return fetch('https://noted-api.appspot.com/users/login', config)
       .then(res => res.json())
       .then(json => {
           if(json.success === false){
