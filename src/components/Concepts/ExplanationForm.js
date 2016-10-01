@@ -42,22 +42,22 @@ const ExplanationForm  = React.createClass({
             'pointerModal': false
         })
     },
-   
+
     renderNodes(explanation){
-        return explanation.map( (node, i) =>{ 
+        return explanation.map( (node, i) =>{
             switch(node.type){
                 case 'para':
                     return (
                         <div  key={i}>
                             <p>({i})Para</p>
-                            <TextField 
+                            <TextField
                                 hintText="Add content"
                                 multiLine={true}
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton 
+                            <IconButton
                                 tooltip="Remove"
                                 onClick={ () => this.removeNode(i)}
                             >
@@ -70,13 +70,13 @@ const ExplanationForm  = React.createClass({
                     return (
                         <div key={i}>
                             <p>({i})Image</p>
-                            <TextField 
+                            <TextField
                                 hintText="Image link"
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton 
+                            <IconButton
                                 tooltip="Remove"
                                 onClick={ () => this.removeNode(i)}
                             >
@@ -89,13 +89,13 @@ const ExplanationForm  = React.createClass({
                     return (
                         <div key={i}>
                             <p>({i} Quote)</p>
-                            <TextField 
+                            <TextField
                                 hintText="Type here..."
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton 
+                            <IconButton
                                 tooltip="Remove"
                                 onClick={ () => this.removeNode(i)}
                             >
@@ -128,7 +128,7 @@ const ExplanationForm  = React.createClass({
         console.log(event)
     },
 
-    render(){        
+    render(){
         return (
             <div className="row">
                 <TextField
@@ -140,7 +140,7 @@ const ExplanationForm  = React.createClass({
                 <div className="nodes">
                     {
                         this.renderNodes(this.props.newConcept.explanation)
-                    }                  
+                    }
                     <div className="btns">
                         <IconButton tooltip="Para" onClick={() => this.addField('para')}>
                             <TextIcon />
@@ -151,11 +151,8 @@ const ExplanationForm  = React.createClass({
                         <IconButton tooltip="Image" onClick={() =>this.addField('image')}>
                             <ImageIcon />
                         </IconButton>
-                        <IconButton tooltip="Pointers" onClick={this.addPointer}>
-                            <PointersIcon />
-                        </IconButton>
                     </div>
-                    <PointerModal 
+                    <PointerModal
                         open={this.state.pointerModal}
 
                         closeModal={this.closeModal}
