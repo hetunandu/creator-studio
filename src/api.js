@@ -1,5 +1,4 @@
-// Base url for the api. Change in production
-const BASE_URL = 'http://localhost:8080/'
+const BASE_URL = 'https://noted-api.appspot.com'
 
 
 // The function that will set the appropriate config and call the API
@@ -7,7 +6,7 @@ function callApi(endpoint, authenticated, post, body) {
 
   // Check if a login token is in the local storage
   let token = localStorage.getItem('login_token') || null
-  
+
   // set an empty config object
   let config = {}
 
@@ -61,7 +60,7 @@ export default store => next => action => {
   // Get details about the call
   let { endpoint, types, authenticated, post, body } = callAPI
 
-  // Get the request actions 
+  // Get the request actions
   const [ requestType, successType, errorType ] = types
 
   // Calling the request started action
