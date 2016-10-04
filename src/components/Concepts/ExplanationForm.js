@@ -9,7 +9,7 @@ import TextIcon from 'material-ui/svg-icons/editor/short-text';
 import ImageIcon from 'material-ui/svg-icons/editor/insert-photo';
 import QuoteIcon from 'material-ui/svg-icons/editor/format-quote';
 import RemoveIcon from 'material-ui/svg-icons/navigation/close';
-import PointersIcon from 'material-ui/svg-icons/editor/format-list-numbered';
+
 
 
 const ExplanationForm  = React.createClass({

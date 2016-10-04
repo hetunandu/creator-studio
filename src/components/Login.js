@@ -17,12 +17,12 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const Login = React.createClass({
-   
+
     attemptLogin(){
         const email = this.refs.email.input.value
         const password = this.refs.password.input.value
-        const creds = {email: email.trim(), password: password.trim()} 
-        
+        const creds = {email: email.trim(), password: password.trim()}
+
         this.props.loginUser(creds)
     },
 
@@ -42,7 +42,7 @@ const Login = React.createClass({
                     ref="password"
                 />
                 <br />
-                <RaisedButton label="Login" primary={true} onClick={this.attemptLogin} keyboardFocused={true} />
+                <RaisedButton label="Login" primary={true} onClick={this.attemptLogin} />
             </Paper>
         );
     }

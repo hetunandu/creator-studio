@@ -6,9 +6,12 @@ import {fetchChapters, addChapter} from '../../actions';
 import {browserHistory} from 'react-router';
 
 import Paper from 'material-ui/Paper';
-import {Link} from 'react-router';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 
 const ChapterList = React.createClass({
@@ -19,11 +22,11 @@ const ChapterList = React.createClass({
 
     render(){
 
-      
-        let body = this.props.chapters.isFetching ? 
+
+        let body = this.props.chapters.isFetching ?
             ( <p>Loading notes...</p> )
             :
-            (   
+            (
                 <div>
                     <FloatingActionButton mini={true} className="right" onClick={this.handleAddChapter}>
                         <ContentAdd />
@@ -34,13 +37,33 @@ const ChapterList = React.createClass({
                         {
                             this.props.chapters.list.map(chapter =>
                                 <div className="col m3"  key={chapter.key}>
-                                    <Link to={ `/chapters/${chapter.key}/`}>
-                                        <Paper zDepth={1} className="chapter-card">
-                                            <h5>{chapter.name}</h5>
-                                        </Paper>
-                                    </Link>
+                                  <Paper zDepth={1} className="chapter-card">
+                                    <IconMenu
+                                      className="right"
+                                      iconButtonElement={
+                                        <IconButton><MoreVertIcon /></IconButton>
+                                      }
+                                      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                                      targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                    >
+                                      <MenuItem
+                                        primaryText="View Concepts"
+                                        onClick={() => browserHistory.push(`chapters/${chapter.key}`)}
+                                      />
+                                      <MenuItem
+                                        primaryText="Edit Chapter"
+                                        onClick={() => this.handleEditChapter(chapter)}
+                                      />
+                                      <MenuItem
+                                        primaryText="Delete Chapter"
+                                        onClick={() => this.handleDeleteChapter(chapter)}
+                                      />
+                                    </IconMenu>
+
+                                    <h5>{chapter.name}</h5>
+                                  </Paper>
                                 </div>
-                            ) 
+                            )
 
                         }
                     </div>
@@ -59,7 +82,19 @@ const ChapterList = React.createClass({
     handleAddChapter(){
         let link = `/subjects/${this.props.subject}/chapters/add`;
         browserHistory.push(link)
+    },
+
+    handleEditChapter(chapter){
+      let link = `/subjects/${this.props.subject}/chapters/${chapter.key}/edit`;
+      browserHistory.push(link)
+    },
+
+    handleDeleteChapter(chapter){
+      let link = `/subjects/${this.props.subject}/chapters/${chapter.key}/delete`;
+      browserHistory.push(link)
     }
+
+
 });
 
 const mapStateToProps = ({chapters}, {params: {subject_key}}) => ({

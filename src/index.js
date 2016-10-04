@@ -11,6 +11,8 @@ import App from './App';
 import SubjectList from './components/Subjects/SubjectList';
 import ChapterList from './components/Chapters/ChapterList';
 import NewChapter from './components/Chapters/NewChapter';
+import EditChapter from './components/Chapters/EditChapter';
+import DeleteChapter from './components/Chapters/DeleteChapter';
 import ConceptList from './components/Concepts/ConceptList';
 import NewConcept from './components/Concepts/NewConcept';
 import './index.css';
@@ -42,7 +44,18 @@ const routes = {
                     path: '/subjects/:subject_key',
                     component: ChapterList,
                     childRoutes: [
-                        {path: '/subjects/:subject_key/chapters/add', component: NewChapter}
+                        {
+                          path: '/subjects/:subject_key/chapters/add',
+                          component: NewChapter
+                        },
+                        {
+                          path: '/subjects/:subject_key/chapters/:chapter_key/edit',
+                          component: EditChapter
+                        },
+                        {
+                          path: '/subjects/:subject_key/chapters/:chapter_key/delete',
+                          component: DeleteChapter
+                        }
                     ]
                 }
             ]

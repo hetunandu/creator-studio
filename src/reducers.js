@@ -6,6 +6,8 @@ import {
   SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE,
   CHAPTERS_REQUEST, CHAPTERS_SUCCESS, CHAPTERS_FAILURE,
   CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE,
+  CHAPTER_EDIT_REQUEST, CHAPTER_EDIT_SUCCESS, CHAPTER_EDIT_FAILURE,
+  CHAPTER_DELETE_REQUEST, CHAPTER_DELETE_SUCCESS, CHAPTER_DELETE_FAILURE,
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
   NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME,
   NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE,
@@ -127,6 +129,44 @@ export const subjects = (state = {
       case CHAPTER_ADD_FAILURE:
         return Object.assign({}, state, {
           isFetching: false
+        })
+      // Editing a Chapter
+      case CHAPTER_EDIT_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      case CHAPTER_EDIT_SUCCESS:
+        let editedChapter = action.response.message
+        let new_list = state.list.map(chapter => {
+          if(chapter.key !== editedChapter.key) return chapter;
+          return Object.assign({}, chapter, editedChapter)
+        })
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: new_list
+        })
+      case CHAPTER_EDIT_FAILURE:
+        return Object.assign({}, state, {
+          isFetching: false,
+          errorMessage: action.error
+        })
+      // Deleteing a chapter
+      case CHAPTER_DELETE_REQUEST:
+        return Object.assign({}, state, {
+          isFetching: true
+        })
+      case CHAPTER_DELETE_SUCCESS:
+        console.log(action)
+        return Object.assign({}, state, {
+          isFetching: false,
+          list: state.list.filter(chapter => {
+            return chapter.key !== action.response.deleted_key
+          })
+        })
+      case CHAPTER_DELETE_FAILURE:
+        return Object.assign({}, state, {
+          isFetching: false,
+          errorMessage: action.error
         })
       default:
         return state

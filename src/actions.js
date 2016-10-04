@@ -52,7 +52,7 @@ export function loginUser(creds) {
     dispatch(requestLogin(creds))
 
 
-    return fetch('https://noted-api.appspot.com/users/login', config)
+    return fetch('http://127.0.0.1:8080/users/login', config)
       .then(res => res.json())
       .then(json => {
           if(json.success === false){
@@ -129,7 +129,7 @@ export function addSubject(subject) {
   return {
     [CALL_API]: {
       endpoint: 'subjects/',
-      post: true,
+      method: 'POST',
       body: subject,
       authenticated: true,
       types: [SUBJECT_ADD_REQUEST, SUBJECT_ADD_SUCCESS, SUBJECT_ADD_FAILURE]
@@ -165,7 +165,7 @@ export function addChapter(data) {
   return {
     [CALL_API]: {
       endpoint: 'chapters/',
-      post: true,
+      method: 'POST',
       body: data,
       authenticated: true,
       types: [CHAPTER_ADD_REQUEST, CHAPTER_ADD_SUCCESS, CHAPTER_ADD_FAILURE]
@@ -173,6 +173,37 @@ export function addChapter(data) {
   }
 }
 
+
+export const CHAPTER_EDIT_REQUEST = 'CHAPTER_EDIT_REQUEST'
+export const CHAPTER_EDIT_SUCCESS = 'CHAPTER_EDIT_SUCCESS'
+export const CHAPTER_EDIT_FAILURE = 'CHAPTER_EDIT_FAILURE'
+
+export function editChapter(data) {
+  return {
+    [CALL_API]: {
+      endpoint: `chapters/${data.key}`,
+      method: 'PUT',
+      body: data,
+      authenticated: true,
+      types: [CHAPTER_EDIT_REQUEST, CHAPTER_EDIT_SUCCESS, CHAPTER_EDIT_FAILURE]
+    }
+  }
+}
+
+export const CHAPTER_DELETE_REQUEST = 'CHAPTER_DELETE_REQUEST'
+export const CHAPTER_DELETE_SUCCESS = 'CHAPTER_DELETE_SUCCESS'
+export const CHAPTER_DELETE_FAILURE = 'CHAPTER_DELETE_FAILURE'
+
+export function deleteChapter(chapter_key) {
+  return {
+    [CALL_API]: {
+      endpoint: `chapters/${chapter_key}`,
+      method: 'DELETE',
+      authenticated: true,
+      types: [CHAPTER_DELETE_REQUEST, CHAPTER_DELETE_SUCCESS, CHAPTER_DELETE_FAILURE]
+    }
+  }
+}
 
 // Concept Actions
 
