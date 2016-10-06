@@ -73,3 +73,23 @@ input[type=text]:focus:not([readonly]){
     border: solid #333 1px;
     border-radius: 3px;
 }
+
+.conceptViewContainer{
+    padding: 10px;
+    padding-top: 70px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+}
+
+.conceptList-card {
+    padding: 10px !important;
+    cursor: pointer !important;
+}
+.conceptList-card.selected{
+    background-color: #50537f !important;
+    color: white !important;
+    cursor: default;
+}

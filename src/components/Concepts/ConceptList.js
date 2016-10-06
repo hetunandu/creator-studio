@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
-import {fetchConcepts} from '../../actions';
+import {fetchConcepts, selectConcept} from '../../actions';
 
-import ConceptCard from './ConceptCard';
+import Paper from 'material-ui/Paper';
 import Loading from '../Loading'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -22,7 +22,7 @@ const ConceptList = React.createClass({
                 {
                     this.props.concepts.isFetching ?
                     (
-                        <p>Loading concepts...</p>
+                       <Loading />
                     )
                     :
                     (
@@ -38,7 +38,7 @@ const ConceptList = React.createClass({
                               </FloatingActionButton>
                             </Link>
                             <h4 className="center">
-                              {this.props.concepts.chapter.name}
+                              Concepts in {this.props.concepts.chapter.name}
                             </h4>
                             {this.props.concepts.isFetching && <Loading />}
                             <p className="red-text">
@@ -49,10 +49,20 @@ const ConceptList = React.createClass({
                                     this.props.concepts.list.length > 0 ? 
                                         this.props.concepts.list.map( concept =>
                                             <div
-                                              className="col m3"
+                                              className="col m6"
                                               key={concept.key}
                                             >
-                                                <ConceptCard concept={concept}/>
+                                                <Paper
+                                                    zDepth={1}
+                                                    style={{padding: 10, cursor: 'pointer'}}
+                                                    className={
+                                                        this.props.concepts.selected.key === concept.key ?
+                                                        "conceptList-card selected" : "conceptList-card"
+                                                    }
+                                                    onClick={() => this.handleConceptSelection(concept.key)}
+                                                >
+                                                    {concept.name}
+                                                </Paper>
                                             </div>
                                         ) 
                                         : <p>No Concepts</p>
@@ -64,18 +74,16 @@ const ConceptList = React.createClass({
 
             </div>
         );
+    },
+
+    handleConceptSelection(concept_key){
+        this.props.selectConcept(concept_key)
     }
 })
 
-
-
-const mapStateToProps = ({concepts}, {params: {chapter_key} }) => ({
-    concepts,
-    chapter_key
-})
-
 const mapDispatchToProps = dispatch => ({
-    fetchConcepts: chapter_key => dispatch(fetchConcepts(chapter_key))
+    fetchConcepts: chapter_key => dispatch(fetchConcepts(chapter_key)),
+    selectConcept: concept_key => dispatch(selectConcept(concept_key))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ConceptList)
+export default connect(null, mapDispatchToProps)(ConceptList)

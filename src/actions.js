@@ -3,9 +3,9 @@ import { CALL_API } from './api';
 
 // There are three possible states for our login
 // process and we need actions for each of them
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 function requestLogin(creds) {
   return {
@@ -45,11 +45,11 @@ export function loginUser(creds) {
         'Content-Type':'application/json'
     },
     body: JSON.stringify(creds)
-  }
+  };
 
   return dispatch => {
     // We dispatch requestLogin to kickoff the call to the API
-    dispatch(requestLogin(creds))
+    dispatch(requestLogin(creds));
 
 
     return fetch('http://127.0.0.1:8080/users/login', config)
@@ -59,7 +59,7 @@ export function loginUser(creds) {
             dispatch(loginError(json.error))
           }else{
             // If login was successful, set the token in local storage
-            localStorage.setItem('login_token', json.message.token)
+            localStorage.setItem('login_token', json.message.token);
             // Dispatch the success action
             dispatch(receiveLogin(json.message.token))
           }
@@ -75,9 +75,9 @@ export function loginUser(creds) {
 // Since we are using JWTs, we just need to remove the token
 // from localStorage. These actions are more useful if we
 // were calling the API to log the user out
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_FAILURE = 'LOGOUT_FAILURE'
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 function requestLogout() {
   return {
@@ -98,17 +98,17 @@ function receiveLogout() {
 // Logs the user out
 export function logoutUser() {
   return dispatch => {
-    dispatch(requestLogout())
-    localStorage.removeItem('login_token')
+    dispatch(requestLogout());
+    localStorage.removeItem('login_token');
     dispatch(receiveLogout())
   }
 }
 
 
 // Subject Actions
-export const SUBJECT_REQUEST = 'SUBJECT_REQUEST'
-export const SUBJECT_SUCCESS = 'SUBJECT_SUCCESS'
-export const SUBJECT_FAILURE = 'SUBJECT_FAILURE'
+export const SUBJECT_REQUEST = 'SUBJECT_REQUEST';
+export const SUBJECT_SUCCESS = 'SUBJECT_SUCCESS';
+export const SUBJECT_FAILURE = 'SUBJECT_FAILURE';
 
 
 export function fetchSubjects() {
@@ -121,9 +121,9 @@ export function fetchSubjects() {
   }
 }
 
-export const SUBJECT_ADD_REQUEST = 'SUBJECT_ADD_REQUEST'
-export const SUBJECT_ADD_SUCCESS = 'SUBJECT_ADD_SUCCESS'
-export const SUBJECT_ADD_FAILURE = 'SUBJECT_ADD_FAILURE'
+export const SUBJECT_ADD_REQUEST = 'SUBJECT_ADD_REQUEST';
+export const SUBJECT_ADD_SUCCESS = 'SUBJECT_ADD_SUCCESS';
+export const SUBJECT_ADD_FAILURE = 'SUBJECT_ADD_FAILURE';
 
 export function addSubject(subject) {
   return {
@@ -140,9 +140,9 @@ export function addSubject(subject) {
 
 // Chapter Actions
 
-export const CHAPTERS_REQUEST = 'CHAPTERS_REQUEST'
-export const CHAPTERS_SUCCESS = 'CHAPTERS_SUCCESS'
-export const CHAPTERS_FAILURE = 'CHAPTERS_FAILURE'
+export const CHAPTERS_REQUEST = 'CHAPTERS_REQUEST';
+export const CHAPTERS_SUCCESS = 'CHAPTERS_SUCCESS';
+export const CHAPTERS_FAILURE = 'CHAPTERS_FAILURE';
 
 
 export function fetchChapters(subject_key) {
@@ -156,9 +156,9 @@ export function fetchChapters(subject_key) {
 }
 
 
-export const CHAPTER_ADD_REQUEST = 'CHAPTER_ADD_REQUEST'
-export const CHAPTER_ADD_SUCCESS = 'CHAPTER_ADD_SUCCESS'
-export const CHAPTER_ADD_FAILURE = 'CHAPTER_ADD_FAILURE'
+export const CHAPTER_ADD_REQUEST = 'CHAPTER_ADD_REQUEST';
+export const CHAPTER_ADD_SUCCESS = 'CHAPTER_ADD_SUCCESS';
+export const CHAPTER_ADD_FAILURE = 'CHAPTER_ADD_FAILURE';
 
 
 export function addChapter(data) {
@@ -174,9 +174,9 @@ export function addChapter(data) {
 }
 
 
-export const CHAPTER_EDIT_REQUEST = 'CHAPTER_EDIT_REQUEST'
-export const CHAPTER_EDIT_SUCCESS = 'CHAPTER_EDIT_SUCCESS'
-export const CHAPTER_EDIT_FAILURE = 'CHAPTER_EDIT_FAILURE'
+export const CHAPTER_EDIT_REQUEST = 'CHAPTER_EDIT_REQUEST';
+export const CHAPTER_EDIT_SUCCESS = 'CHAPTER_EDIT_SUCCESS';
+export const CHAPTER_EDIT_FAILURE = 'CHAPTER_EDIT_FAILURE';
 
 export function editChapter(data) {
   return {
@@ -190,9 +190,9 @@ export function editChapter(data) {
   }
 }
 
-export const CHAPTER_DELETE_REQUEST = 'CHAPTER_DELETE_REQUEST'
-export const CHAPTER_DELETE_SUCCESS = 'CHAPTER_DELETE_SUCCESS'
-export const CHAPTER_DELETE_FAILURE = 'CHAPTER_DELETE_FAILURE'
+export const CHAPTER_DELETE_REQUEST = 'CHAPTER_DELETE_REQUEST';
+export const CHAPTER_DELETE_SUCCESS = 'CHAPTER_DELETE_SUCCESS';
+export const CHAPTER_DELETE_FAILURE = 'CHAPTER_DELETE_FAILURE';
 
 export function deleteChapter(chapter_key) {
   return {
@@ -207,9 +207,9 @@ export function deleteChapter(chapter_key) {
 
 // Concept Actions
 
-export const CONCEPTS_REQUEST = 'CONCEPTS_REQUEST'
-export const CONCEPTS_SUCCESS = 'CONCEPTS_SUCCESS'
-export const CONCEPTS_FAILURE = 'CONCEPTS_FAILURE'
+export const CONCEPTS_REQUEST = 'CONCEPTS_REQUEST';
+export const CONCEPTS_SUCCESS = 'CONCEPTS_SUCCESS';
+export const CONCEPTS_FAILURE = 'CONCEPTS_FAILURE';
 
 
 export function fetchConcepts(chapter_key) {
@@ -223,46 +223,49 @@ export function fetchConcepts(chapter_key) {
 }
 
 
+// Select Concept
+export const SELECT_CONCEPT = 'SELECT_CONCEPT';
+export const selectConcept = concept_key => ({type: SELECT_CONCEPT, concept_key});
+
 // New Concept actions
+export const NEW_CONCEPT_CHANGE_STEP = 'NEW_CONCEPT_CHANGE_STEP';
 
-export const NEW_CONCEPT_CHANGE_STEP = 'NEW_CONCEPT_CHANGE_STEP'
+export const changeStep = stepIndex => ({type: NEW_CONCEPT_CHANGE_STEP, stepIndex});
 
-export const changeStep = stepIndex => ({type: NEW_CONCEPT_CHANGE_STEP, stepIndex})
+export const NEW_CONCEPT_SET_NAME = 'NEW_CONCEPT_SET_NAME';
+export const NEW_CONCEPT_ADD_EXP_NODE = 'NEW_CONCEPT_ADD_EXP_NODE';
+export const NEW_CONCEPT_UPDATE_EXP_NODE = 'NEW_CONCEPT_UPDATE_EXP_NODE';
+export const NEW_CONCEPT_REMOVE_EXP_NODE = 'NEW_CONCEPT_REMOVE_EXP_NODE';
 
-export const NEW_CONCEPT_SET_NAME = 'NEW_CONCEPT_SET_NAME'
-export const NEW_CONCEPT_ADD_EXP_NODE = 'NEW_CONCEPT_ADD_EXP_NODE'
-export const NEW_CONCEPT_UPDATE_EXP_NODE = 'NEW_CONCEPT_UPDATE_EXP_NODE'
-export const NEW_CONCEPT_REMOVE_EXP_NODE = 'NEW_CONCEPT_REMOVE_EXP_NODE'
-
-export const setConceptName = name => ({type: NEW_CONCEPT_SET_NAME, name})
-export const addExpNode = node => ({type: NEW_CONCEPT_ADD_EXP_NODE, node})
-export const updateExpNode = (node, index) => ({type: NEW_CONCEPT_UPDATE_EXP_NODE, node, index})
-export const removeExpNode = index => ({type: NEW_CONCEPT_REMOVE_EXP_NODE, index})
-
-
-export const NEW_CONCEPT_ADD_REF = 'NEW_CONCEPT_ADD_REF'
-export const NEW_CONCEPT_REMOVE_REF = 'NEW_CONCEPT_REMOVE_REF'
-
-export const addReference = data => ({type: NEW_CONCEPT_ADD_REF, data})
-export const removeReference = index => ({type: NEW_CONCEPT_REMOVE_REF, index})
+export const setConceptName = name => ({type: NEW_CONCEPT_SET_NAME, name});
+export const addExpNode = node => ({type: NEW_CONCEPT_ADD_EXP_NODE, node});
+export const updateExpNode = (node, index) => ({type: NEW_CONCEPT_UPDATE_EXP_NODE, node, index});
+export const removeExpNode = index => ({type: NEW_CONCEPT_REMOVE_EXP_NODE, index});
 
 
-export const NEW_CONCEPT_ADD_TIP = 'NEW_CONCEPT_ADD_TIP'
-export const NEW_CONCEPT_REMOVE_TIP = 'NEW_CONCEPT_REMOVE_TIP'
+export const NEW_CONCEPT_ADD_REF = 'NEW_CONCEPT_ADD_REF';
+export const NEW_CONCEPT_REMOVE_REF = 'NEW_CONCEPT_REMOVE_REF';
 
-export const addTip = data => ({type: NEW_CONCEPT_ADD_TIP, data})
-export const removeTip = index => ({type: NEW_CONCEPT_REMOVE_TIP, index})
+export const addReference = data => ({type: NEW_CONCEPT_ADD_REF, data});
+export const removeReference = index => ({type: NEW_CONCEPT_REMOVE_REF, index});
 
 
-export const NEW_CONCEPT_ADD_QUESTION = 'NEW_CONCEPT_ADD_QUESTION'
-export const NEW_CONCEPT_REMOVE_QUESTION = 'NEW_CONCEPT_REMOVE_QUESTION'
+export const NEW_CONCEPT_ADD_TIP = 'NEW_CONCEPT_ADD_TIP';
+export const NEW_CONCEPT_REMOVE_TIP = 'NEW_CONCEPT_REMOVE_TIP';
 
-export const addQuestion = question => ({type: NEW_CONCEPT_ADD_QUESTION, question})
-export const removeQuestion = question => ({type: NEW_CONCEPT_REMOVE_QUESTION, question})
+export const addTip = data => ({type: NEW_CONCEPT_ADD_TIP, data});
+export const removeTip = index => ({type: NEW_CONCEPT_REMOVE_TIP, index});
 
-export const CONCEPT_ADD_REQUEST = 'CONCEPT_ADD_REQUEST'
-export const CONCEPT_ADD_SUCCESS = 'CONCEPT_ADD_SUCCESS'
-export const CONCEPT_ADD_FAILURE = 'CONCEPT_ADD_FAILURE'
+
+export const NEW_CONCEPT_ADD_QUESTION = 'NEW_CONCEPT_ADD_QUESTION';
+export const NEW_CONCEPT_REMOVE_QUESTION = 'NEW_CONCEPT_REMOVE_QUESTION';
+
+export const addQuestion = question => ({type: NEW_CONCEPT_ADD_QUESTION, question});
+export const removeQuestion = question => ({type: NEW_CONCEPT_REMOVE_QUESTION, question});
+
+export const CONCEPT_ADD_REQUEST = 'CONCEPT_ADD_REQUEST';
+export const CONCEPT_ADD_SUCCESS = 'CONCEPT_ADD_SUCCESS';
+export const CONCEPT_ADD_FAILURE = 'CONCEPT_ADD_FAILURE';
 
 
 export function saveConcept(newConcept) {
