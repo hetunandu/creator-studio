@@ -228,54 +228,18 @@ export const SELECT_CONCEPT = 'SELECT_CONCEPT';
 export const selectConcept = concept_key => ({type: SELECT_CONCEPT, concept_key});
 
 // New Concept actions
-export const NEW_CONCEPT_CHANGE_STEP = 'NEW_CONCEPT_CHANGE_STEP';
+export const NEW_CONCEPT_REQUEST = 'NEW_CONCEPT_REQUEST';
+export const NEW_CONCEPT_SUCCESS = 'NEW_CONCEPT_SUCCESS';
+export const NEW_CONCEPT_FAILURE = 'NEW_CONCEPT_FAILURE';
 
-export const changeStep = stepIndex => ({type: NEW_CONCEPT_CHANGE_STEP, stepIndex});
-
-export const NEW_CONCEPT_SET_NAME = 'NEW_CONCEPT_SET_NAME';
-export const NEW_CONCEPT_ADD_EXP_NODE = 'NEW_CONCEPT_ADD_EXP_NODE';
-export const NEW_CONCEPT_UPDATE_EXP_NODE = 'NEW_CONCEPT_UPDATE_EXP_NODE';
-export const NEW_CONCEPT_REMOVE_EXP_NODE = 'NEW_CONCEPT_REMOVE_EXP_NODE';
-
-export const setConceptName = name => ({type: NEW_CONCEPT_SET_NAME, name});
-export const addExpNode = node => ({type: NEW_CONCEPT_ADD_EXP_NODE, node});
-export const updateExpNode = (node, index) => ({type: NEW_CONCEPT_UPDATE_EXP_NODE, node, index});
-export const removeExpNode = index => ({type: NEW_CONCEPT_REMOVE_EXP_NODE, index});
-
-
-export const NEW_CONCEPT_ADD_REF = 'NEW_CONCEPT_ADD_REF';
-export const NEW_CONCEPT_REMOVE_REF = 'NEW_CONCEPT_REMOVE_REF';
-
-export const addReference = data => ({type: NEW_CONCEPT_ADD_REF, data});
-export const removeReference = index => ({type: NEW_CONCEPT_REMOVE_REF, index});
-
-
-export const NEW_CONCEPT_ADD_TIP = 'NEW_CONCEPT_ADD_TIP';
-export const NEW_CONCEPT_REMOVE_TIP = 'NEW_CONCEPT_REMOVE_TIP';
-
-export const addTip = data => ({type: NEW_CONCEPT_ADD_TIP, data});
-export const removeTip = index => ({type: NEW_CONCEPT_REMOVE_TIP, index});
-
-
-export const NEW_CONCEPT_ADD_QUESTION = 'NEW_CONCEPT_ADD_QUESTION';
-export const NEW_CONCEPT_REMOVE_QUESTION = 'NEW_CONCEPT_REMOVE_QUESTION';
-
-export const addQuestion = question => ({type: NEW_CONCEPT_ADD_QUESTION, question});
-export const removeQuestion = question => ({type: NEW_CONCEPT_REMOVE_QUESTION, question});
-
-export const CONCEPT_ADD_REQUEST = 'CONCEPT_ADD_REQUEST';
-export const CONCEPT_ADD_SUCCESS = 'CONCEPT_ADD_SUCCESS';
-export const CONCEPT_ADD_FAILURE = 'CONCEPT_ADD_FAILURE';
-
-
-export function saveConcept(newConcept) {
-  return {
-    [CALL_API]: {
-      endpoint: `concepts/`,
-      post: true,
-      body: newConcept,
-      authenticated: true,
-      types: [CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE]
+export function addConcept(data) {
+    return {
+        [CALL_API]: {
+            endpoint: `concepts/`,
+            method: "POST",
+            body: data,
+            authenticated: true,
+            types: [NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE]
+        }
     }
-  }
 }

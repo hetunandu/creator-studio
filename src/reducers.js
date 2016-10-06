@@ -9,13 +9,8 @@ import {
   CHAPTER_EDIT_REQUEST, CHAPTER_EDIT_SUCCESS, CHAPTER_EDIT_FAILURE,
   CHAPTER_DELETE_REQUEST, CHAPTER_DELETE_SUCCESS, CHAPTER_DELETE_FAILURE,
   CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
-  NEW_CONCEPT_CHANGE_STEP, NEW_CONCEPT_SET_NAME,
-  NEW_CONCEPT_ADD_EXP_NODE, NEW_CONCEPT_UPDATE_EXP_NODE, NEW_CONCEPT_REMOVE_EXP_NODE,
-  CONCEPT_ADD_REQUEST, CONCEPT_ADD_SUCCESS, CONCEPT_ADD_FAILURE,
-  NEW_CONCEPT_ADD_REF, NEW_CONCEPT_ADD_TIP, NEW_CONCEPT_REMOVE_REF, NEW_CONCEPT_REMOVE_TIP,
-  NEW_CONCEPT_ADD_QUESTION, NEW_CONCEPT_REMOVE_QUESTION
+  SELECT_CONCEPT, NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE  
 } from './actions'
-import {SELECT_CONCEPT} from "./actions";
 
 
 // The auth reducer. The starting state sets authentication
@@ -126,7 +121,7 @@ export const subjects = (state = {
       case CHAPTER_ADD_SUCCESS:
         return Object.assign({}, state, {
           isFetching: false,
-          list: state.list.concat([action.response.message]),
+          list: state.list.concat([action.response.message])
         });
       case CHAPTER_ADD_FAILURE:
         return Object.assign({}, state, {
@@ -215,97 +210,21 @@ export const subjects = (state = {
                     return concept.key === action.concept_key
                 })[0]
             });
-      default:
-        return state
-    }
-  };
-
-
-  // New Concept Actions
-  export const newConcept = (state = {
-      isSaving: false,
-      errorMessage: '',
-      stepIndex: 0,
-      chapter_key: null,
-      name: '',
-      explanation: [],
-      references: [],
-      tips: [],
-      questions: []
-    }, action) => {
-    switch(action.type){
-      case NEW_CONCEPT_CHANGE_STEP:
-        return Object.assign({}, state, {
-          stepIndex: action.stepIndex
-        });
-      case NEW_CONCEPT_SET_NAME:
-        return Object.assign({}, state, {
-          name: action.name
-        });
-      case NEW_CONCEPT_ADD_EXP_NODE:
-        return Object.assign({}, state, {
-          explanation: state.explanation.concat([action.node])
-        });
-      case NEW_CONCEPT_UPDATE_EXP_NODE:
-        let explanation = state.explanation;
-        explanation[action.index] = action.node;
-        return Object.assign({}, state, {
-          explanation
-        });
-      case NEW_CONCEPT_REMOVE_EXP_NODE:
-        return Object.assign({}, state, {
-          explanation: state.explanation
-                        .slice(0, action.index)
-                        .concat(state.explanation.slice(action.index + 1))
-        });
-      case NEW_CONCEPT_ADD_REF:
-        return Object.assign({}, state, {
-          references: state.references.concat([action.data])
-        });
-      case NEW_CONCEPT_REMOVE_REF:
-        return Object.assign({}, state, {
-          references: state.references
-                        .slice(0, action.index)
-                        .concat(state.references.slice(action.index + 1))
-        });
-      case NEW_CONCEPT_ADD_TIP:
-        return Object.assign({}, state, {
-          tips: state.tips.concat([action.data])
-        });
-      case NEW_CONCEPT_REMOVE_TIP:
-        return Object.assign({}, state, {
-          tips: state.tips
-                        .slice(0, action.index)
-                        .concat(state.tips.slice(action.index + 1))
-        });
-      case NEW_CONCEPT_ADD_QUESTION:
-        return Object.assign({}, state, {
-          questions: state.questions.concat([action.question])
-        });
-      case NEW_CONCEPT_REMOVE_QUESTION:
-        return Object.assign({}, state, {
-          questions: state.questions.filter( (question) => question !== action.question )
-        });
-      case CONCEPT_ADD_REQUEST:
-        return Object.assign({}, state, {
-          isSaving: true
-        });
-      case CONCEPT_ADD_SUCCESS:
-        return Object.assign({}, state, {
-          isSaving: false,
-          stepIndex: 0,
-          chapter_key: null,
-          name: '',
-          explanation: [],
-          references: [],
-          tips: [],
-          questions: []
-        });
-      case CONCEPT_ADD_FAILURE:
-        return Object.assign({}, state, {
-          isSaving: false,
-          errorMessage: action.errorMessage
-        });
+        case NEW_CONCEPT_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true,
+                errorMessage: ''
+            });
+        case NEW_CONCEPT_SUCCESS:
+            return Object.assign({}, state, {
+                isFetching: false,
+                list: state.list.concat([action.response.message.concept])
+            });
+        case NEW_CONCEPT_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                errorMessage: action.error
+            });
       default:
         return state
     }

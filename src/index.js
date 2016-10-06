@@ -14,7 +14,7 @@ import NewChapter from './components/Chapters/NewChapter';
 import EditChapter from './components/Chapters/EditChapter';
 import DeleteChapter from './components/Chapters/DeleteChapter';
 import ConceptsContainer from './components/Concepts/ConceptsContainer';
-import NewConcept from './components/Concepts/NewConcept';
+import NewConceptModal from './components/Concepts/NewConceptModal';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -62,11 +62,13 @@ const routes = {
         },
         {
             path: '/chapters/:chapter_key',
-            component: ConceptsContainer
-        },
-         {
-            path: '/chapters/:chapter_key/new',
-            component: NewConcept
+            component: ConceptsContainer,
+            childRoutes: [
+                {
+                    path: '/chapters/:chapter_key/new',
+                    component: NewConceptModal
+                }
+            ]
         }
     ]
 };
@@ -83,7 +85,7 @@ const render = () => {
       </Router>
     </Provider>,
     document.getElementById('root'));
-}
+};
 
 // First render
 render();

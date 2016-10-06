@@ -16,15 +16,16 @@ const ConceptsContainer = React.createClass({
                 <div className="col m6">
                     <ConceptPreview concept={this.props.concepts.selected}/>
                 </div>
+                {this.props.children}
             </div>
         )
     }
-})
+});
 
 const mapStateToProps = ({newConcept, concepts}, {params: {chapter_key}}) => ({
     newConcept,
     concepts,
     chapter_key
-})
+});
 
 export default connect(mapStateToProps)(ConceptsContainer)
