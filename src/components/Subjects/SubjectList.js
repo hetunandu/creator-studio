@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 import Divider from 'material-ui/Divider';
 import { fetchSubjects, addSubject, fetchChapters } from '../../actions';
 import SubjectCard from './SubjectCard';
+import Loading from '../Loading'
 
 const SubjectList = React.createClass({
 
@@ -13,42 +14,33 @@ const SubjectList = React.createClass({
     },
 
     render(){
-        
-        let body = this.props.subjects.isFetching ? 
-            ( <p>Loading Subjects...</p> ) 
-            :
-            (
+        return (
+            <div className="section subject">
                 <div>
                     <h4 className="center">Select a subject</h4>
+                    {this.props.subjects.isFetching && <Loading />}
                     <p className="red-text center">{this.props.subjects.errorMessage}</p>
 
                     <div className="row">
-                        { 
-                            this.props.subjects.list.map( subject => 
-                                <div 
-                                    className="col m4 s12" 
-                                    key={subject.key} 
+                        {
+                            this.props.subjects.list.map( subject =>
+                                <div
+                                    className="col m4 s12"
+                                    key={subject.key}
                                     onClick={this.handleSubjectChange.bind(this, subject.key)}
                                 >
-                                    <SubjectCard 
-                                        subject={subject} 
-                                        isSelected={this.props.activeSubjectKey === subject.key}  
+                                    <SubjectCard
+                                        subject={subject}
+                                        isSelected={this.props.activeSubjectKey === subject.key}
                                     />
                                 </div>
                             )
-                        }                   
+                        }
                     </div>
 
-                   
                     <Divider />
                     { this.props.children }
                 </div>
-
-
-            )
-        return (
-            <div className="section subject">
-                {body}
             </div>
         );
     },

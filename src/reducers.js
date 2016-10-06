@@ -30,13 +30,13 @@ export const auth = (state = {
         isFetching: true,
         isAuthenticated: false,
         user: action.creds
-      })
+      });
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
         errorMessage: ''
-      })
+      });
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
@@ -58,7 +58,7 @@ export const subjects = (state = {
     list: []
   }, action) => {
     switch(action.type){
-      //Fethcing the subject list
+      //Fetching the subject list
       case SUBJECT_REQUEST:
         return Object.assign({}, state, {
           isFetching: true
@@ -66,7 +66,7 @@ export const subjects = (state = {
       case SUBJECT_SUCCESS:
         return Object.assign({}, state, {
           isFetching: false,
-          list: action.response.message.subjects,
+          list: action.response.message.subjects
         })
       case SUBJECT_FAILURE:
         return Object.assign({}, state, {
@@ -82,7 +82,7 @@ export const subjects = (state = {
       case SUBJECT_ADD_SUCCESS:
         return Object.assign({}, state, {
           isFetching: false,
-          list: state.list.concat([action.response.message]),
+          list: state.list.concat([action.response.message])
         })
       case SUBJECT_ADD_FAILURE:
         return Object.assign({}, state, {
@@ -92,7 +92,7 @@ export const subjects = (state = {
       default:
         return state
     }
-  }
+  };
 
   export const chapters = (state = {
     isFetching: false,
@@ -102,6 +102,7 @@ export const subjects = (state = {
       case CHAPTERS_REQUEST:
         return Object.assign({}, state, {
           isFetching: true,
+          list: [],
           errorMessage: ''
         })
       case CHAPTERS_SUCCESS:

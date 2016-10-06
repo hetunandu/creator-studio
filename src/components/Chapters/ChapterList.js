@@ -12,7 +12,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
+import Loading from '../Loading'
 
 const ChapterList = React.createClass({
 
@@ -21,59 +21,52 @@ const ChapterList = React.createClass({
     },
 
     render(){
-
-
-        let body = this.props.chapters.isFetching ?
-            ( <p>Loading notes...</p> )
-            :
-            (
-                <div>
-                    <FloatingActionButton mini={true} className="right" onClick={this.handleAddChapter}>
-                        <ContentAdd />
-                    </FloatingActionButton>
-                    <h4 className="center">Chapters ( {this.props.chapters.list.length}  )</h4>
-                    <p className="center red-text">{this.props.chapters.errorMessage}</p>
-                    <div className="row">
-                        {
-                            this.props.chapters.list.map(chapter =>
-                                <div className="col m3"  key={chapter.key}>
-                                  <Paper zDepth={1} className="chapter-card">
-                                    <IconMenu
-                                      className="right"
-                                      iconButtonElement={
-                                        <IconButton><MoreVertIcon /></IconButton>
-                                      }
-                                      anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-                                      targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                                    >
-                                      <MenuItem
-                                        primaryText="View Concepts"
-                                        onClick={() => browserHistory.push(`chapters/${chapter.key}`)}
-                                      />
-                                      <MenuItem
-                                        primaryText="Edit Chapter"
-                                        onClick={() => this.handleEditChapter(chapter)}
-                                      />
-                                      <MenuItem
-                                        primaryText="Delete Chapter"
-                                        onClick={() => this.handleDeleteChapter(chapter)}
-                                      />
-                                    </IconMenu>
-
-                                    <h5>{chapter.name}</h5>
-                                  </Paper>
-                                </div>
-                            )
-
-                        }
-                    </div>
-                    {this.props.children}
-                </div>
-            )
-
         return (
             <div className="section chapters">
-                {body}
+                <FloatingActionButton mini={true} className="right" onClick={this.handleAddChapter}>
+                    <ContentAdd />
+                </FloatingActionButton>
+                <h4 className="center">Chapters</h4>
+                {this.props.chapters.isFetching && <Loading /> }
+                <p className="center red-text">{this.props.chapters.errorMessage}</p>
+                <div className="row">
+                    {
+                        this.props.chapters.list.length > 0 ?
+                            this.props.chapters.list.map(chapter =>
+                                <div className="col m3"  key={chapter.key}>
+                                    <Paper zDepth={1} className="chapter-card">
+                                        <IconMenu
+                                            className="right"
+                                            iconButtonElement={
+                                    <IconButton><MoreVertIcon /></IconButton>
+                                }
+                                            anchorOrigin={{horizontal: 'left', vertical: 'top'}}
+                                            targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                        >
+                                            <MenuItem
+                                                primaryText="View Concepts"
+                                                onClick={() => browserHistory.push(`/chapters/${chapter.key}`)}
+                                            />
+                                            <MenuItem
+                                                primaryText="Edit Chapter"
+                                                onClick={() => this.handleEditChapter(chapter)}
+                                            />
+                                            <MenuItem
+                                                primaryText="Delete Chapter"
+                                                onClick={() => this.handleDeleteChapter(chapter)}
+                                            />
+                                        </IconMenu>
+
+                                        <h5>{chapter.name}</h5>
+                                    </Paper>
+                                </div>
+                            )
+                            : this.props.chapters.isFetching ?  "" : (<p>No Chapters found</p>)
+
+
+                    }
+                </div>
+                {this.props.children}
             </div>
         );
     },
