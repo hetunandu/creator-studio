@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ConceptList from './ConceptList';
-import ConceptPreview from './ConceptPreview';
+import ConceptPreview from './ConceptView';
 
 const ConceptsContainer = React.createClass({
     render(){
