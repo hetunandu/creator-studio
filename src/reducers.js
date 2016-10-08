@@ -199,9 +199,9 @@ export const concepts = (state = {
         case CONCEPTS_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
-                chapter: action.response.message.chapter,
                 list: action.response.message.chapter.concepts,
-                errorMessage: ''
+                errorMessage: '',
+                selected: action.response.message.chapter.concepts[0]
             });
         case CONCEPTS_FAILURE:
             return Object.assign({}, state, {
@@ -252,7 +252,8 @@ export const concepts = (state = {
         case NEW_CONCEPT_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
-                list: state.list.concat([action.response.message.concept])
+                list: state.list.concat([action.response.message.concept]),
+                selected: action.response.message.concept
             });
         case NEW_CONCEPT_FAILURE:
             return Object.assign({}, state, {
@@ -269,6 +270,7 @@ export const concepts = (state = {
                 list: state.list.filter((concept) => {
                     return concept.key !== action.response.message.deleted_key
                 }),
+                selected: state.list[0],
                 isFetching: false
 
             });
