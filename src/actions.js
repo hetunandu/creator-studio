@@ -262,3 +262,19 @@ export function addConcept(data) {
         }
     }
 }
+
+// Delete Concept actions
+export const DELETE_CONCEPT_REQUEST = 'DELETE_CONCEPT_REQUEST';
+export const DELETE_CONCEPT_SUCCESS = 'DELETE_CONCEPT_SUCCESS';
+export const DELETE_CONCEPT_FAILURE = 'DELETE_CONCEPT_FAILURE';
+
+export function deleteConcept(concept_key) {
+    return {
+        [CALL_API]: {
+            endpoint: `concepts/${concept_key}`,
+            method: "DELETE",
+            authenticated: true,
+            types: [DELETE_CONCEPT_REQUEST, DELETE_CONCEPT_SUCCESS, DELETE_CONCEPT_FAILURE]
+        }
+    }
+}

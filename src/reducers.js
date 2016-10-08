@@ -1,4 +1,3 @@
-
 import {
     LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE,
     LOGOUT_SUCCESS,
@@ -11,7 +10,8 @@ import {
     CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
     UPDATE_SELECTED_CONCEPT, SELECT_CONCEPT,
     NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE,
-    SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE
+    SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE,
+    DELETE_CONCEPT_REQUEST, DELETE_CONCEPT_SUCCESS, DELETE_CONCEPT_FAILURE
 } from './actions'
 
 
@@ -21,7 +21,7 @@ import {
 export const auth = (state = {
     isFetching: false,
     isAuthenticated: localStorage.getItem('login_token') ? true : false
-}, action)  => {
+}, action) => {
     switch (action.type) {
         case LOGIN_REQUEST:
             return Object.assign({}, state, {
@@ -55,7 +55,7 @@ export const subjects = (state = {
     isFetching: false,
     list: []
 }, action) => {
-    switch(action.type){
+    switch (action.type) {
         //Fetching the subject list
         case SUBJECT_REQUEST:
             return Object.assign({}, state, {
@@ -96,7 +96,7 @@ export const chapters = (state = {
     isFetching: false,
     list: []
 }, action) => {
-    switch(action.type){
+    switch (action.type) {
         case CHAPTERS_REQUEST:
             return Object.assign({}, state, {
                 isFetching: true,
@@ -137,7 +137,7 @@ export const chapters = (state = {
         case CHAPTER_EDIT_SUCCESS:
             let editedChapter = action.response.message;
             let new_list = state.list.map(chapter => {
-                if(chapter.key !== editedChapter.key) return chapter;
+                if (chapter.key !== editedChapter.key) return chapter;
                 return Object.assign({}, chapter, editedChapter)
             });
             return Object.assign({}, state, {
@@ -189,7 +189,7 @@ export const concepts = (state = {
         questions: []
     }
 }, action) => {
-    switch(action.type){
+    switch (action.type) {
         // Fetching concept list
         case CONCEPTS_REQUEST:
             return Object.assign({}, state, {
@@ -229,9 +229,9 @@ export const concepts = (state = {
             const new_concept = action.response.message.concept
             return Object.assign({}, state, {
                 list: state.list.map(concept => {
-                    if(concept.key !== new_concept.key){
+                    if (concept.key !== new_concept.key) {
                         return concept;
-                    }else{
+                    } else {
                         return new_concept
                     }
                 }),
@@ -255,6 +255,24 @@ export const concepts = (state = {
                 list: state.list.concat([action.response.message.concept])
             });
         case NEW_CONCEPT_FAILURE:
+            return Object.assign({}, state, {
+                isFetching: false,
+                errorMessage: action.error
+            });
+        // Deleting a concept
+        case DELETE_CONCEPT_REQUEST:
+            return Object.assign({}, state, {
+                isFetching: true
+            });
+        case DELETE_CONCEPT_SUCCESS:
+            return Object.assign({}, state, {
+                list: state.list.filter((concept) => {
+                    return concept.key !== action.response.message.deleted_key
+                }),
+                isFetching: false
+
+            });
+        case DELETE_CONCEPT_FAILURE:
             return Object.assign({}, state, {
                 isFetching: false,
                 errorMessage: action.error

@@ -15,6 +15,7 @@ import EditChapter from './components/Chapters/EditChapter';
 import DeleteChapter from './components/Chapters/DeleteChapter';
 import ConceptsContainer from './components/Concepts/ConceptContainer';
 import NewConceptModal from './components/Concepts/NewConceptModal';
+import DeleteConcept from "./components/Concepts/DeleteConcept";
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -67,6 +68,10 @@ const routes = {
                 {
                     path: '/chapters/:chapter_key/new',
                     component: NewConceptModal
+                },
+                {
+                    path: '/chapters/:chapter_key/concepts/:concept_key/delete',
+                    component: DeleteConcept
                 }
             ]
         }

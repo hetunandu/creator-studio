@@ -8,15 +8,16 @@ const ConceptsContainer = React.createClass({
     render(){
         return(
             <div className="row">
-                <div className="col m6">
+                <div className="col m6 s12">
                     <ConceptList
                         chapter_key={this.props.chapter_key}
                         concepts={this.props.concepts}
                     />
                 </div>
-                <div className="col m6">
+                <div className="col m6 s12">
                     <ConceptView 
                         concept={this.props.concepts.selected}
+                        chapter_key={this.props.chapter_key}
                         
                         updateConcept={this.props.updateSelectedConcept}
                         saveConcept={this.props.saveSelectedConcept}

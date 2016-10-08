@@ -1,9 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import {fetchConcepts, selectConcept} from '../../actions';
-import {Link} from 'react-router';
 
 import Paper from 'material-ui/Paper';
 import Loading from '../Loading'
@@ -44,14 +41,6 @@ const ConceptList = React.createClass({
                         :
                         (
                             <div>
-                                <Link to={`/chapters/${this.props.chapter_key}/new`}>
-                                    <FloatingActionButton
-                                        mini={true}
-                                        className="right"
-                                    >
-                                        <ContentAdd />
-                                    </FloatingActionButton>
-                                </Link>
                                 <h4 className="center">
                                     Concepts in {this.props.concepts.chapter.name}
                                 </h4>

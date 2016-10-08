@@ -6,6 +6,11 @@ import ContentSave from 'material-ui/svg-icons/content/save';
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import TextField from 'material-ui/TextField'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { browserHistory } from 'react-router';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import RemoveIcon from 'material-ui/svg-icons/navigation/close';
+
+
 
 const ConceptView = React.createClass({
     
@@ -32,6 +37,24 @@ const ConceptView = React.createClass({
                 >
                     {editMode ? <ContentSave /> : <ContentEdit />}
                 </FloatingActionButton>
+                <FloatingActionButton
+                    mini={true}
+                    disabled={editMode}
+                    onClick={this.handleConceptAdd}
+                    style={{position: 'fixed', right: 20, top: 130}}
+                >
+                    <ContentAdd />
+                </FloatingActionButton>
+                <FloatingActionButton
+                    mini={true}
+                    disabled={editMode}
+                    onClick={this.handleConceptDelete}
+                    backgroundColor="red"
+                    style={{position: 'fixed', right: 20, top: 180}}
+                >
+                    <RemoveIcon />
+                </FloatingActionButton>
+
 
                 {
                     editMode ? (
@@ -138,6 +161,14 @@ const ConceptView = React.createClass({
                 editing: true
             })
         }
+    },
+
+    handleConceptAdd(){
+        browserHistory.push(`/chapters/${this.props.chapter_key}/new`)
+    },
+    
+    handleConceptDelete(){
+        browserHistory.push(`/chapters/${this.props.chapter_key}/concepts/${this.props.concept.key}/delete`)
     }
 });
 
