@@ -13,6 +13,10 @@ const NewConceptModal = React.createClass({
             conceptName: ""
         }
     },
+
+    componentDidMount(){
+      this.refs.name.input.focus()
+    },
     
     render(){
         const actions = [

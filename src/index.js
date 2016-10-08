@@ -13,7 +13,7 @@ import ChapterList from './components/Chapters/ChapterList';
 import NewChapter from './components/Chapters/NewChapter';
 import EditChapter from './components/Chapters/EditChapter';
 import DeleteChapter from './components/Chapters/DeleteChapter';
-import ConceptsContainer from './components/Concepts/ConceptsContainer';
+import ConceptsContainer from './components/Concepts/ConceptContainer';
 import NewConceptModal from './components/Concepts/NewConceptModal';
 import './index.css';
 import injectTapEventPlugin from 'react-tap-event-plugin';

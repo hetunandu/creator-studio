@@ -1,8 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {setConceptName, addExpNode, updateExpNode, removeExpNode} from '../../actions'
-import PointerModal from './PointerModal'
-
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import TextIcon from 'material-ui/svg-icons/editor/short-text';
@@ -14,166 +10,153 @@ import RemoveIcon from 'material-ui/svg-icons/navigation/close';
 
 const ExplanationForm  = React.createClass({
 
-    getInitialState(){
-        return{
-            'pointerModal': false,
-        }
-    },
-
-    handleConceptNameChange(event){
-        this.props.setConceptName(event.target.value)
-    },
-
-    addField(type){
-        this.props.addExpNode({
-            type: type,
+    addNode(type){
+        const newExp = this.props.explanation.concat([{
+            type,
             data: ''
-        })
+        }]);
+
+        this.props.updateExplanation(newExp)
     },
 
-    addPointer(){
-        this.setState({
-            'pointerModal': true
-        })
+    removeNode(index){
+        const newExp = this.props.explanation.filter((node, i) => {
+           return i !== index
+        });
+        this.props.updateExplanation(newExp)
     },
 
-    closeModal(){
-        this.setState({
-            'pointerModal': false
-        })
+    handleExplanationNodeChange(event){
+        const data = event.target.value;
+        const type = event.target.id.split("_")[0];
+        const index = parseInt(event.target.id.split("_")[1], 10);
+
+        const newExp = this.props.explanation.map((node, i) => {
+            if(i !== index) {
+                return node;
+            }else{
+                return ({ type, data})
+            }
+        });
+
+        this.props.updateExplanation(newExp)
     },
 
     renderNodes(explanation){
+
         return explanation.map( (node, i) =>{
             switch(node.type){
                 case 'para':
                     return (
-                        <div  key={i}>
-                            <p>({i})Para</p>
+                        <div  key={i} className="node">
+                            <NodeToolbar
+                                nodeIcon={<TextIcon />}
+                                index={i}
+
+                                removeNode={this.removeNode}
+                            />
                             <TextField
                                 hintText="Add content"
                                 multiLine={true}
+                                textareaStyle={{
+                                    maxWidth: '90%'
+                                }}
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton
-                                tooltip="Remove"
-                                onClick={ () => this.removeNode(i)}
-                            >
-                                <RemoveIcon className="red-text"/>
-                            </IconButton>
+
                             <br />
                         </div>
-                    )
+                    );
                 case 'image':
                     return (
-                        <div key={i}>
-                            <p>({i})Image</p>
+                        <div key={i} className="node">
+                            <NodeToolbar
+                                nodeIcon={<ImageIcon />}
+                                index={i}
+
+                                removeNode={this.removeNode}
+                            />
+                            <img
+                                src={node.data}
+                                className="explanation-img responsive-img"
+                                role="presentation"/>
                             <TextField
                                 hintText="Image link"
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton
-                                tooltip="Remove"
-                                onClick={ () => this.removeNode(i)}
-                            >
-                                <RemoveIcon className="red-text"/>
-                            </IconButton>
                             <br />
                         </div>
-                    )
+                    );
                 case 'quote':
                     return (
-                        <div key={i}>
-                            <p>({i} Quote)</p>
+                        <div key={i} className="node">
+                            <NodeToolbar
+                                nodeIcon={<QuoteIcon />}
+                                index={i}
+
+                                removeNode={this.removeNode}
+                            />
                             <TextField
                                 hintText="Type here..."
                                 value={node.data}
                                 id={`${node.type}_${i}`}
                                 onChange={this.handleExplanationNodeChange}
                             />
-                            <IconButton
-                                tooltip="Remove"
-                                onClick={ () => this.removeNode(i)}
-                            >
-                                <RemoveIcon className="red-text"/>
-                            </IconButton>
                             <br />
                         </div>
-                    )
+                    );
                 default:
                     return <p>Unknown type</p>
             }
         })
     },
 
-    handleExplanationNodeChange(event){
-       const text = event.target.value
-       const type = event.target.id.split("_")[0]
-       const index = parseInt(event.target.id.split("_")[1], 10)
-       this.props.updateExpNode({
-           type,
-           data: text
-       }, index)
-    },
-
-    removeNode(index){
-        this.props.removeExpNode(index)
-    },
-
-    imageUpload(event){
-        console.log(event)
-    },
-
     render(){
         return (
             <div className="row">
-                <TextField
-                    floatingLabelText="Concept name"
-                    value={this.props.newConcept.name}
-                    onChange={this.handleConceptNameChange}
-                />
-                <br/>
                 <div className="nodes">
                     {
-                        this.renderNodes(this.props.newConcept.explanation)
+                        this.renderNodes(this.props.explanation)
                     }
                     <div className="btns">
-                        <IconButton tooltip="Para" onClick={() => this.addField('para')}>
+                        <IconButton tooltip="Para" onClick={() => this.addNode('para')}>
                             <TextIcon />
                         </IconButton>
-                        <IconButton tooltip="Quote" onClick={() => this.addField('quote')}>
+                        <IconButton tooltip="Quote" onClick={() => this.addNode('quote')}>
                             <QuoteIcon />
                         </IconButton>
-                        <IconButton tooltip="Image" onClick={() =>this.addField('image')}>
+                        <IconButton tooltip="Image" onClick={() =>this.addNode('image')}>
                             <ImageIcon />
                         </IconButton>
                     </div>
-                    <PointerModal
-                        open={this.state.pointerModal}
-
-                        closeModal={this.closeModal}
-                    />
                 </div>
             </div>
         )
     }
 
-})
+});
+
+const NodeToolbar = React.createClass({
+    render(){
+        return (
+            <div style={{backgroundColor: '#f5f5f5'}}>
+                {this.props.nodeIcon}
+                <RemoveIcon
+                    className="red-text right"
+                    style={{cursor: 'pointer'}}
+
+                    onClick={() => this.props.removeNode(this.props.index)}
+                />
+            </div>
+        )
+    }
+});
 
 
-const mapStateToProps = ({newConcept}) => ({
-    newConcept
-})
 
-const mapDispatchToProps = dispatch => ({
-    setConceptName: name => {dispatch(setConceptName(name))},
-    addExpNode: node => {dispatch(addExpNode(node))},
-    updateExpNode: (node, index) => {dispatch(updateExpNode(node, index))},
-    removeExpNode: index => {dispatch(removeExpNode(index))}
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExplanationForm)
+export default ExplanationForm

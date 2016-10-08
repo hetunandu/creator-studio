@@ -9,7 +9,9 @@ import {
     CHAPTER_EDIT_REQUEST, CHAPTER_EDIT_SUCCESS, CHAPTER_EDIT_FAILURE,
     CHAPTER_DELETE_REQUEST, CHAPTER_DELETE_SUCCESS, CHAPTER_DELETE_FAILURE,
     CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
-    SELECT_CONCEPT, NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE
+    UPDATE_SELECTED_CONCEPT, SELECT_CONCEPT,
+    NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE,
+    SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE
 } from './actions'
 
 
@@ -173,10 +175,11 @@ export const chapters = (state = {
 // Concept Actions
 export const concepts = (state = {
     isFetching: false,
+    errorMessage: '',
     chapter: {},
     list: [],
     selected: {
-        isFetching: false,
+        isSaving: false,
         errorMessage: '',
         chapter_key: null,
         name: '',
@@ -205,12 +208,40 @@ export const concepts = (state = {
                 errorMessage: action.error,
                 isFetching: false
             });
-        // Select a subject
+        // Select a concept
         case SELECT_CONCEPT:
             return Object.assign({}, state, {
                 selected: state.list.filter(concept => {
                     return concept.key === action.concept_key
                 })[0]
+            });
+        // Update selected concept
+        case UPDATE_SELECTED_CONCEPT:
+            return Object.assign({}, state, {
+                selected: action.concept
+            });
+        // Save selected concept
+        case SAVE_SELECTED_CONCEPT_REQUEST:
+            return Object.assign({}, state, {
+                isSaving: true
+            });
+        case SAVE_SELECTED_CONCEPT_SUCCESS:
+            const new_concept = action.response.message.concept
+            return Object.assign({}, state, {
+                list: state.list.map(concept => {
+                    if(concept.key !== new_concept.key){
+                        return concept;
+                    }else{
+                        return new_concept
+                    }
+                }),
+                selected: new_concept,
+                isSaving: false
+            });
+        case SAVE_SELECTED_CONCEPT_FAILURE:
+            return Object.assign({}, state, {
+                isSaving: false,
+                errorMessage: action.error
             });
         // Creating a new concept
         case NEW_CONCEPT_REQUEST:

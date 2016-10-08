@@ -1,6 +1,8 @@
 import React from 'react';
 import ExplanationView from './ExplanationView';
+import ExplanationForm from './ExplanationForm';
 import ReferenceView from './ReferenceView';
+import ReferenceForm from './ReferenceForm';
 import Paper from 'material-ui/Paper';
 
 
@@ -13,7 +15,11 @@ const ConceptCard = React.createClass({
         switch(this.props.mode){
             case 1:
                 classes = "concept-card references";
-                body =  <ReferenceView references={concept.references} tips={concept.tips}/>;
+                if(this.props.editing){
+                    body = <ReferenceForm references={concept.references} tips={concept.tips} />;
+                }else{
+                    body =  <ReferenceView references={concept.references} tips={concept.tips}/>;
+                }
                 break;
             case 2:
                 classes = "concept-card questions";
@@ -21,7 +27,16 @@ const ConceptCard = React.createClass({
                 break;
             default:
                 classes =  "concept-card explanation";
-                body = <ExplanationView explanation={concept.explanation}/>;
+                if(this.props.editing){
+                    body = (
+                        <ExplanationForm 
+                            explanation={concept.explanation} 
+                            updateExplanation={this.updateExplanation}
+                        />
+                    );
+                }else{
+                    body = <ExplanationView explanation={concept.explanation}/>;
+                }
                 break;
         }
 
@@ -30,18 +45,17 @@ const ConceptCard = React.createClass({
                 zDepth={2}
                 className={classes}
             >
-                {
-                    concept.name === null || concept.name === '' ?(
-                        <span className="concept-name grey-text">Select a concept from the list or add new</span>
-                    ):
-                        (
-                            <span className="concept-name">{concept.name}</span>
-                        )
-                }
                 {body}
 
             </Paper>
         )
+    },
+    
+    updateExplanation(explanation){
+        const new_concept = Object.assign({}, this.props.concept, {
+            explanation
+        });
+        this.props.updateConcept(new_concept)
     }
 });
 

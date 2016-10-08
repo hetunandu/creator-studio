@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ConceptList from './ConceptList';
-import ConceptPreview from './ConceptView';
+import ConceptView from './ConceptView';
+import { updateSelectedConcept, saveSelectedConcept } from '../../actions';
 
 const ConceptsContainer = React.createClass({
     render(){
@@ -14,7 +15,12 @@ const ConceptsContainer = React.createClass({
                     />
                 </div>
                 <div className="col m6">
-                    <ConceptPreview concept={this.props.concepts.selected}/>
+                    <ConceptView 
+                        concept={this.props.concepts.selected}
+                        
+                        updateConcept={this.props.updateSelectedConcept}
+                        saveConcept={this.props.saveSelectedConcept}
+                    />
                 </div>
                 {this.props.children}
             </div>
@@ -28,4 +34,9 @@ const mapStateToProps = ({newConcept, concepts}, {params: {chapter_key}}) => ({
     chapter_key
 });
 
-export default connect(mapStateToProps)(ConceptsContainer)
+const mapDispatchToProps = dispatch => ({
+    updateSelectedConcept: (concept) => {dispatch(updateSelectedConcept(concept))},
+    saveSelectedConcept: (concept) => {dispatch(saveSelectedConcept(concept))} 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConceptsContainer)

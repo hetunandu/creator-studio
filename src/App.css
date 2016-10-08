@@ -76,7 +76,7 @@ input[type=text]:focus:not([readonly]){
 
 .conceptViewContainer{
     padding: 10px;
-    padding-top: 100px;
+    padding-top: 70px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -93,4 +93,7 @@ input[type=text]:focus:not([readonly]){
     background-color: #50537f !important;
     color: white !important;
     cursor: default;
+}
+.node{
+    position: relative;
 }
