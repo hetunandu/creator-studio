@@ -4,7 +4,7 @@ const ExplanationView = React.createClass({
     render(){
         const body = this.props.explanation.map((node, i) => {
             switch(node.type){
-                case 'para':
+                case 'text':
                     return <p key={i}>{node.data}</p>;
                 case 'image':
                     return <img
@@ -19,6 +19,22 @@ const ExplanationView = React.createClass({
                     >
                         {node.data}
                     </blockquote>;
+                case 'title':
+                    return <h5 key={i}>{node.data}</h5>;
+                case 'pointers':
+                    return (
+                        <ol key={i}>
+                            {
+                                node.data.map((point, j) => {
+                                    return (
+                                        <li key={j}>
+                                            <h6>{point.title}</h6>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ol>
+                    );
                 default:
                     return "Unknown type"
             }

@@ -199,6 +199,7 @@ export const concepts = (state = {
         case CONCEPTS_SUCCESS:
             return Object.assign({}, state, {
                 isFetching: false,
+                chapter: action.response.message.chapter,
                 list: action.response.message.chapter.concepts,
                 errorMessage: '',
                 selected: action.response.message.chapter.concepts[0]

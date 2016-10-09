@@ -26,6 +26,10 @@ const Login = React.createClass({
         this.props.loginUser(creds)
     },
 
+    componentDidMount(){
+      this.refs.email.input.focus()
+    },
+
     render(){
         return (
             <Paper zDepth={2} style={{padding: 10, textAlign: 'center' }} >

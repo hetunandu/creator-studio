@@ -44,6 +44,7 @@ input[type=text]:focus:not([readonly]){
 }
 
 
+
 .concept-card.references{
     background-color: #333 !important;
     color: white !important;
@@ -96,4 +97,9 @@ input[type=text]:focus:not([readonly]){
 }
 .node{
     position: relative;
+    margin: 0 -5px;
+}
+
+.concept-card  ol{
+    padding-left: 20px !important;
 }

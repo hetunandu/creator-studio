@@ -11,24 +11,7 @@ const ConceptList = React.createClass({
     componentWillMount(){
         this.props.fetchConcepts(this.props.chapter_key)
     },
-
-    componentDidUpdate(){
-        if(!this.props.concepts.selected.key){
-            if(this.props.concepts.list.length > 1){
-                this.props.selectConcept(this.props.concepts.list[0].key)
-            }
-        }
-    },
-
-    shouldComponentUpdate(nextProps, nextState){
-
-        if(this.props.concepts.list.length < nextProps.concepts.list.length){
-            console.log(nextProps.concepts.list)
-        }
-        // return a boolean value
-        return true;
-    },
-
+    
     render(){
 
         return (
