@@ -3,6 +3,8 @@ import ExplanationView from './ExplanationView';
 import ExplanationForm from './ExplanationForm';
 import ReferenceView from './ReferenceView';
 import ReferenceForm from './ReferenceForm';
+import QuestionsForm from './QuestionsForm';
+import QuestionsView from './QuestionsView';
 import Paper from 'material-ui/Paper';
 
 
@@ -31,7 +33,16 @@ const ConceptCard = React.createClass({
                 break;
             case 2:
                 classes = "concept-card questions";
-                body = <p>Questions</p>;
+                if(this.props.editing){
+                    body= (
+                      <QuestionsForm
+                          questions={concept.questions}
+                          updateQuestions={this.updateQuestions}
+                      />
+                    );
+                }else{
+                    body = <QuestionsView questions={concept.questions} />;
+                }
                 break;
             default:
                 classes =  "concept-card explanation";
@@ -77,6 +88,13 @@ const ConceptCard = React.createClass({
         const new_concept = Object.assign({}, this.props.concept, {
             tips
         });
+        this.props.updateConcept(new_concept)
+    },
+    
+    updateQuestions(questions){
+        const new_concept = Object.assign({}, this.props.concept, {
+            questions
+        })
         this.props.updateConcept(new_concept)
     }
 });

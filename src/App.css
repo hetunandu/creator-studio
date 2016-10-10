@@ -51,7 +51,7 @@ input[type=text]:focus:not([readonly]){
 }
 
 .concept-card.questions{
-    background-color: #50537f !important;
+    background-color: #795548 !important;
     color: white !important;
 }
 
