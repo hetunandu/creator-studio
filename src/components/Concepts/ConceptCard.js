@@ -16,7 +16,15 @@ const ConceptCard = React.createClass({
             case 1:
                 classes = "concept-card references";
                 if(this.props.editing){
-                    body = <ReferenceForm references={concept.references} tips={concept.tips} />;
+                    body = (
+                        <ReferenceForm
+                            references={concept.references}
+                            tips={concept.tips}
+
+                            updateReferences={this.updateReferences}
+                            updateTips={this.updateTips}
+                        />
+                    );
                 }else{
                     body =  <ReferenceView references={concept.references} tips={concept.tips}/>;
                 }
@@ -54,6 +62,20 @@ const ConceptCard = React.createClass({
     updateExplanation(explanation){
         const new_concept = Object.assign({}, this.props.concept, {
             explanation
+        });
+        this.props.updateConcept(new_concept)
+    },
+
+    updateReferences(references){
+        const new_concept = Object.assign({}, this.props.concept, {
+            references
+        });
+        this.props.updateConcept(new_concept)
+    },
+
+    updateTips(tips){
+        const new_concept = Object.assign({}, this.props.concept, {
+            tips
         });
         this.props.updateConcept(new_concept)
     }

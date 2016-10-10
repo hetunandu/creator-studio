@@ -10,7 +10,7 @@ const ReferenceView = React.createClass({
     render(){
         return(
             <div>
-                <h5>References</h5>
+                <h5 className="thin-text">References</h5>
                 <List>
                     {
                         this.props.references.map((ref, i) =>
@@ -24,7 +24,7 @@ const ReferenceView = React.createClass({
                         )
                     }
                 </List>
-                <h5>Tips</h5>
+                <h5 className="thin-text">Tips</h5>
                 <List>
                     {
                         this.props.tips.map((tip, i) =>

@@ -46,7 +46,7 @@ input[type=text]:focus:not([readonly]){
 
 
 .concept-card.references{
-    background-color: #333 !important;
+    background-color: #3f789a !important;
     color: white !important;
 }
 
@@ -100,6 +100,25 @@ input[type=text]:focus:not([readonly]){
     margin: 0 -5px;
 }
 
-.concept-card  ol{
+.concept-card ol{
     padding-left: 20px !important;
+}
+
+.thin-text{
+    font-weight: 300;
+}
+
+.clickable{
+    cursor: pointer;
+}
+.remove-icon-container{
+    position: relative;
+}
+.remove-icon{
+    z-index: 9999;
+    cursor: pointer;
+    color: red !important;
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }
