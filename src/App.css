@@ -63,9 +63,11 @@ input[type=text]:focus:not([readonly]){
 }
 
 .explanation-img{
+    display: block;
+    margin: 0 auto;
     background-color: #444;
-    height: 200px !important;
-    width: 100% !important;
+    height: 200px!important;
+    max-width: 100%!important;
 }
 
 .nodes > .btns {
