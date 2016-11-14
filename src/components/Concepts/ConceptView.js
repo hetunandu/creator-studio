@@ -1,14 +1,11 @@
 import React from 'react';
 import ConceptCard from './ConceptCard';
-import FontIcon from 'material-ui/FontIcon';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
+import Close from 'material-ui/svg-icons/navigation/close';
 import TextField from 'material-ui/TextField'
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import { browserHistory } from 'react-router';
-import ContentAdd from 'material-ui/svg-icons/content/add';
-import RemoveIcon from 'material-ui/svg-icons/navigation/close';
 
 
 
@@ -16,12 +13,8 @@ const ConceptView = React.createClass({
     
     getInitialState(){
         return {
-            index: 0,
             editing: false
         }
-    },
-    
-    componentDidUpdate(){
     },
     
     render(){
@@ -31,31 +24,20 @@ const ConceptView = React.createClass({
             <div className="conceptViewContainer grey">
                 <FloatingActionButton
                     mini={true}
+                    backgroundColor='red'
+                    style={{position: 'fixed', right: 20, top: 70}}
+                    onTouchTap={this.handleConceptDelete}
+                >
+                    <Close />
+                </FloatingActionButton>
+                <FloatingActionButton
+                    mini={true}
                     secondary={true}
-                    style={{position: 'fixed', right: 20, top: 80}}
+                    style={{position: 'fixed', right: 80, top: 70}}
                     onTouchTap={this.handleFABClick}
                 >
                     {editMode ? <ContentSave /> : <ContentEdit />}
                 </FloatingActionButton>
-                <FloatingActionButton
-                    mini={true}
-                    disabled={editMode}
-                    onClick={this.handleConceptAdd}
-                    style={{position: 'fixed', right: 20, top: 130}}
-                >
-                    <ContentAdd />
-                </FloatingActionButton>
-                <FloatingActionButton
-                    mini={true}
-                    disabled={editMode}
-                    onClick={this.handleConceptDelete}
-                    backgroundColor="red"
-                    style={{position: 'fixed', right: 20, top: 180}}
-                >
-                    <RemoveIcon />
-                </FloatingActionButton>
-
-
                 {
                     editMode ? (
                         <TextField
@@ -67,7 +49,8 @@ const ConceptView = React.createClass({
                             inputStyle={{
                                 fontSize: 25,
                                 color: 'white',
-                                fontWeight: '400'
+                                fontWeight: '400',
+                                fullwidth: 'true'
                             }}
                             ref="concept_name"
                             onChange={this.handleConceptNameChange}
@@ -89,43 +72,29 @@ const ConceptView = React.createClass({
                         </p>
 
                 }
+                <div className="conceptModes">
+                    <ConceptCard
+                        concept={this.props.concept}
+                        mode={0}
+                        editing={this.state.editing}
 
-                <ConceptCard
-                    concept={this.props.concept}
-                    mode={this.state.index}
-                    editing={this.state.editing}
+                        updateConcept={this.handleConceptChange}
+                    />
+                     <ConceptCard
+                        concept={this.props.concept}
+                        mode={1}
+                        editing={this.state.editing}
 
-                    updateConcept={this.handleConceptChange}
-                />
+                        updateConcept={this.handleConceptChange}
+                    />
+                     <ConceptCard
+                        concept={this.props.concept}
+                        mode={2}
+                        editing={this.state.editing}
 
-                <div
-                    style={{
-                        backgroundColor: 'white',
-                        position: 'fixed',
-                        bottom: 0,
-                        right: 0,
-                        width: '50%'
-                    }}
-                >
-                    <BottomNavigation selectedIndex={this.state.index}>
-                        <BottomNavigationItem
-                            label="Explanation"
-                            icon={ <FontIcon className="material-icons">lightbulb_outline</FontIcon>}
-                            onTouchTap={() => this.handleModeChange(0)}
-                        />
-                        <BottomNavigationItem
-                            label="References and Tips"
-                            icon={<FontIcon className="material-icons">info_outline</FontIcon>}
-                            onTouchTap={() => this.handleModeChange(1)}
-                        />
-                        <BottomNavigationItem
-                            label="Questions"
-                            icon={<FontIcon className="material-icons">help_outline</FontIcon>}
-                            onTouchTap={() => this.handleModeChange(2)}
-                        />
-                    </BottomNavigation>
+                        updateConcept={this.handleConceptChange}
+                    />
                 </div>
-
             </div>
         )
     },
@@ -143,10 +112,6 @@ const ConceptView = React.createClass({
         this.props.updateConcept(updated_concept)
     },
 
-    handleModeChange(index){
-        this.setState({index})
-    },
-
     handleFABClick(){
         if(this.state.editing){
             //Save the concept
@@ -161,10 +126,6 @@ const ConceptView = React.createClass({
                 editing: true
             })
         }
-    },
-
-    handleConceptAdd(){
-        browserHistory.push(`/chapters/${this.props.chapter_key}/new`)
     },
     
     handleConceptDelete(){

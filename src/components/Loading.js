@@ -1,12 +1,12 @@
-/**
- * Created by hetu on 06/10/16.
- */
 import React from 'react'
-import CircularProgress from 'material-ui/CircularProgress'
+import Snackbar from 'material-ui/Snackbar';
 
 const Loading = () => {
     return(
-        <div className="center"><CircularProgress /></div>
+        <Snackbar
+          open={true}
+          message="Loading"
+        />
     )
 };
 

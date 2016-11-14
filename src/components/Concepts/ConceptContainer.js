@@ -4,17 +4,19 @@ import ConceptList from './ConceptList';
 import ConceptView from './ConceptView';
 import { updateSelectedConcept, saveSelectedConcept } from '../../actions';
 
+
+// Container of the index and the concept information
 const ConceptsContainer = React.createClass({
     render(){
         return(
             <div className="row">
-                <div className="col m6 s12">
+                <div className="col m3">
                     <ConceptList
                         chapter_key={this.props.chapter_key}
                         concepts={this.props.concepts}
                     />
                 </div>
-                <div className="col m6 s12">
+                <div className="col m9">
                     <ConceptView 
                         concept={this.props.concepts.selected}
                         chapter_key={this.props.chapter_key}

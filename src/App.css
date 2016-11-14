@@ -33,7 +33,6 @@ input[type=text]:focus:not([readonly]){
     font-size: 15px;
     height: 500px;
     width: 300px;
-    margin: auto;
     overflow-y: scroll;
     margin-bottom: 10px;
 }
@@ -78,13 +77,23 @@ input[type=text]:focus:not([readonly]){
 }
 
 .conceptViewContainer{
+    margin-top: -10px;
+    margin-right: -21px;
     padding: 10px;
-    padding-top: 70px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 50%;
+    height: 85vh;
+}
+
+.conceptModes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.conceptList{
+    
+    max-height: 85vh;
+    overflow: scroll;
 }
 
 .conceptList-card {
