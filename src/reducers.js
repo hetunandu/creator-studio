@@ -177,18 +177,7 @@ export const concepts = (state = {
     isFetching: false,
     errorMessage: '',
     chapter: {},
-    list: [],
-    selected: {
-        isEditing: false,
-        isSaving: false,
-        errorMessage: '',
-        chapter_key: null,
-        name: '',
-        explanation: [],
-        references: [],
-        tips: [],
-        questions: []
-    }
+    list: []
 }, action) => {
     switch (action.type) {
         // Fetching concept list
