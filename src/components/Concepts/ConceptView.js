@@ -16,71 +16,77 @@ const ConceptView = React.createClass({
         return(
             <div className="conceptViewContainer grey">
                 <p className="red-text">{concept.errorMessage}</p>
-                <FlatButton
-                    label={concept.isEditing ? 'Save' : 'Edit'}
-                    secondary={true}
-                    style={{position: 'fixed', right: 120, top: 70}}
-                    onTouchTap={this.handleFABClick}
-                    icon={concept.isEditing ? <ContentSave /> : <ContentEdit />}
-                />
-                <FlatButton
-                    label="Delete"
-                    style={{position: 'fixed', right: 20, top: 70, color: 'red'}}
-                    onTouchTap={this.handleConceptDelete}
-                    icon={<Close/>}
-                />
-                {
-                    concept.isEditing ? (
-                        <TextField
-                            hintText="Concept Name"
-                            style={{
-                                display: 'block',
-                                margin: '0 auto'
-                            }}
-                            inputStyle={{
-                                fontSize: 25,
-                                color: 'white',
-                                fontWeight: '400',
-                                fullwidth: 'true'
-                            }}
-                            ref="concept_name"
-                            onChange={this.handleConceptNameChange}
-                            value={concept.data.name}
-                        />
-                    )
-                        :
-                        <p
-                            className="center"
-                            style={{
-                                margin: 0,
-                                marginBottom: 10,
-                                fontSize: 25,
-                                color: 'white',
-                                fontWeight: '400'
-                            }}
-                        >
-                            {concept.data.name}
-                        </p>
-
-                }
                 {
                     concept.data.key && (
-                        <div className="conceptModes">
-                            <ConceptCard
-                                concept={concept}
-                                mode={0}
-                                updateConcept={this.handleConceptChange}
+                        <div>
+                            <FlatButton
+                                label={concept.isEditing ? 'Save' : 'Edit'}
+                                backgroundColor='#333'
+                                style={{position: 'fixed', right: 140, top: 70, color: 'white'}}
+                                onTouchTap={this.handleFABClick}
+                                icon={concept.isEditing ? <ContentSave /> : <ContentEdit />}
                             />
-                             <ConceptCard
-                                concept={concept}
-                                mode={1}
-                                updateConcept={this.handleConceptChange}
+                            <FlatButton
+                                label="Delete"
+                                backgroundColor='red'
+                                style={{position: 'fixed', right: 20, top: 70, color: 'white'}}
+                                onTouchTap={this.handleConceptDelete}
+                                icon={<Close/>}
                             />
-                             <ConceptCard
-                                concept={concept}
-                                mode={2}
-                                updateConcept={this.handleConceptChange}
-                            />
+                            {
+                                concept.isEditing ? (
+                                    <TextField
+                                        hintText="Concept Name"
+                                        style={{
+                                            display: 'block',
+                                            margin: '0 auto'
+                                        }}
+                                        inputStyle={{
+                                            fontSize: 25,
+                                            color: 'white',
+                                            fontWeight: '400',
+                                            fullwidth: 'true'
+                                        }}
+                                        ref="concept_name"
+                                        onChange={this.handleConceptNameChange}
+                                        value={concept.data.name}
+                                    />
+                                )
+                                :
+                                (
+
+                                    <p
+                                        className="center"
+                                        style={{
+                                            margin: 0,
+                                            marginBottom: 10,
+                                            fontSize: 25,
+                                            color: 'white',
+                                            fontWeight: '400'
+                                        }}
+                                    >
+                                        {concept.data.name}
+                                    </p>
+                                )
+
+                            }
+                            <div className="conceptModes">
+                                <ConceptCard
+                                    concept={concept}
+                                    mode={0}
+                                    updateConcept={this.handleConceptChange}
+                                />
+                                 <ConceptCard
+                                    concept={concept}
+                                    mode={1}
+                                    updateConcept={this.handleConceptChange}
+                                />
+                                 <ConceptCard
+                                    concept={concept}
+                                    mode={2}
+                                    updateConcept={this.handleConceptChange}
+                                />
+                            </div>
                         </div>
 
                     )
@@ -113,7 +119,8 @@ const ConceptView = React.createClass({
     },
     
     handleConceptDelete(){
-        browserHistory.push(`/chapters/${this.props.chapter_key}/concepts/${this.props.concept.data.key}/delete`)
+        browserHistory.push(`/chapters/${this.props.chapter_key}
+            /concepts/${this.props.concept.data.key}/delete`)
     }
 });
 
