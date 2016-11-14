@@ -16,7 +16,7 @@ const ConceptList = React.createClass({
 	render(){
 
 		return (
-			<div className="conceptList">
+			<div className="concept-list">
 				<FloatingActionButton
 				    mini={true}
 				    backgroundColor='green'
@@ -29,19 +29,19 @@ const ConceptList = React.createClass({
 				{this.props.concepts.isFetching ? <Loading /> : (
 					<div>
 						<p className="red-text"> {this.props.concepts.errorMessage} </p>
-						<ol>
+						<ol className="concept-index">
 						{
 							this.props.concepts.list.length > 0 ?
 							
 								this.props.concepts.list.map( concept =>
-									<li key={concept.key} >
+									<li key={concept.key}>
 										<div
 											className={
 												this.props.concepts.selected.key === concept.key ?
-													"conceptList-card selected" : "conceptList-card"
+													"concept-list-item selected" : "concept-list-item"
 											}
 											onClick={() => this.handleConceptSelection(concept.key)}
-										>
+										>		
 											{concept.name}
 										</div>
 									</li>

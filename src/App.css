@@ -90,18 +90,24 @@ input[type=text]:focus:not([readonly]){
     justify-content: space-between;
 }
 
-.conceptList{
+.concept-list{
     
     max-height: 85vh;
     overflow: scroll;
 }
 
-.conceptList-card {
-    padding: 10px !important;
-    cursor: pointer !important;
-    margin-bottom: 10px;
+.concept-index{
+    color: #333;
+    font-size: 20px;
 }
-.conceptList-card.selected{
+
+.concept-list-item {
+    font-size: 14px;
+    padding: 5px !important;
+    cursor: pointer !important;
+    border-bottom: #333 dotted 1px;
+}
+.concept-list-item.selected{
     background-color: #50537f !important;
     color: white !important;
     cursor: default;
