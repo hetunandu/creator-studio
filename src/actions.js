@@ -223,29 +223,6 @@ export function fetchConcepts(chapter_key) {
 }
 
 
-// Select Concept
-export const SELECT_CONCEPT = 'SELECT_CONCEPT';
-export const selectConcept = concept_key => ({type: SELECT_CONCEPT, concept_key});
-
-export const UPDATE_SELECTED_CONCEPT = 'UPDATE_SELECTED_CONCEPT';
-export const updateSelectedConcept = concept => ({type: UPDATE_SELECTED_CONCEPT, concept});
-
-export const SAVE_SELECTED_CONCEPT_REQUEST = 'SAVE_SELECTED_CONCEPT_REQUEST';
-export const SAVE_SELECTED_CONCEPT_SUCCESS = 'SAVE_SELECTED_CONCEPT_SUCCESS';
-export const SAVE_SELECTED_CONCEPT_FAILURE = 'SAVE_SELECTED_CONCEPT_FAILURE';
-export function saveSelectedConcept(concept){
-    return {
-        [CALL_API]: {
-            endpoint: `concepts/${concept.key}`,
-            body: concept,
-            method: 'PUT',
-            authenticated: true,
-            types: [SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE]
-        }
-    }
-}
-
-
 // New Concept actions
 export const NEW_CONCEPT_REQUEST = 'NEW_CONCEPT_REQUEST';
 export const NEW_CONCEPT_SUCCESS = 'NEW_CONCEPT_SUCCESS';
@@ -275,6 +252,33 @@ export function deleteConcept(concept_key) {
             method: "DELETE",
             authenticated: true,
             types: [DELETE_CONCEPT_REQUEST, DELETE_CONCEPT_SUCCESS, DELETE_CONCEPT_FAILURE]
+        }
+    }
+}
+
+
+// Select Concept
+export const SELECT_CONCEPT = 'SELECT_CONCEPT';
+export const selectConcept = concept => ({type: SELECT_CONCEPT, concept});
+
+//Edit Concept
+export const EDIT_SELECTED_CONCEPT = 'EDIT_SELECTED_CONCEPT';
+export const editSelectedConcept = () => ({type: EDIT_SELECTED_CONCEPT});
+
+export const UPDATE_SELECTED_CONCEPT = 'UPDATE_SELECTED_CONCEPT';
+export const updateSelectedConcept = concept => ({type: UPDATE_SELECTED_CONCEPT, concept});
+
+export const SAVE_SELECTED_CONCEPT_REQUEST = 'SAVE_SELECTED_CONCEPT_REQUEST';
+export const SAVE_SELECTED_CONCEPT_SUCCESS = 'SAVE_SELECTED_CONCEPT_SUCCESS';
+export const SAVE_SELECTED_CONCEPT_FAILURE = 'SAVE_SELECTED_CONCEPT_FAILURE';
+export function saveSelectedConcept(concept){
+    return {
+        [CALL_API]: {
+            endpoint: `concepts/${concept.key}`,
+            body: concept,
+            method: 'PUT',
+            authenticated: true,
+            types: [SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE]
         }
     }
 }

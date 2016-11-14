@@ -10,51 +10,51 @@ import Paper from 'material-ui/Paper';
 
 const ConceptCard = React.createClass({
     render(){
-        const concept = this.props.concept;
+        const {concept} = this.props;
         let classes;
         let body;
 
         switch(this.props.mode){
             case 1:
                 classes = "concept-card references";
-                if(this.props.editing){
+                if(concept.isEditing){
                     body = (
                         <ReferenceForm
-                            references={concept.references}
-                            tips={concept.tips}
+                            references={concept.data.references}
+                            tips={concept.data.tips}
 
                             updateReferences={this.updateReferences}
                             updateTips={this.updateTips}
                         />
                     );
                 }else{
-                    body =  <ReferenceView references={concept.references} tips={concept.tips}/>;
+                    body =  <ReferenceView references={concept.data.references} tips={concept.data.tips}/>;
                 }
                 break;
             case 2:
                 classes = "concept-card questions";
-                if(this.props.editing){
+                if(concept.isEditing){
                     body= (
                       <QuestionsForm
-                          questions={concept.questions}
+                          questions={concept.data.questions}
                           updateQuestions={this.updateQuestions}
                       />
                     );
                 }else{
-                    body = <QuestionsView questions={concept.questions} />;
+                    body = <QuestionsView questions={concept.data.questions} />;
                 }
                 break;
             default:
                 classes =  "concept-card explanation";
-                if(this.props.editing){
+                if(concept.isEditing){
                     body = (
                         <ExplanationForm 
-                            explanation={concept.explanation} 
+                            explanation={concept.data.explanation} 
                             updateExplanation={this.updateExplanation}
                         />
                     );
                 }else{
-                    body = <ExplanationView explanation={concept.explanation}/>;
+                    body = <ExplanationView explanation={concept.data.explanation}/>;
                 }
                 break;
         }
@@ -71,28 +71,28 @@ const ConceptCard = React.createClass({
     },
     
     updateExplanation(explanation){
-        const new_concept = Object.assign({}, this.props.concept, {
+        const new_concept = Object.assign({}, this.props.concept.data, {
             explanation
         });
         this.props.updateConcept(new_concept)
     },
 
     updateReferences(references){
-        const new_concept = Object.assign({}, this.props.concept, {
+        const new_concept = Object.assign({}, this.props.concept.data, {
             references
         });
         this.props.updateConcept(new_concept)
     },
 
     updateTips(tips){
-        const new_concept = Object.assign({}, this.props.concept, {
+        const new_concept = Object.assign({}, this.props.concept.data, {
             tips
         });
         this.props.updateConcept(new_concept)
     },
     
     updateQuestions(questions){
-        const new_concept = Object.assign({}, this.props.concept, {
+        const new_concept = Object.assign({}, this.props.concept.data, {
             questions
         })
         this.props.updateConcept(new_concept)

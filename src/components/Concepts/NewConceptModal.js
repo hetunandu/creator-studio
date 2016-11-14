@@ -77,12 +77,8 @@ const NewConceptModal = React.createClass({
     
     handlePrimaryClick(){
         let name = this.refs.name.input.value.trim();
-        
         this.props.addConcept({name: name, chapter_key: this.props.chapter_key});
-        
-        this.refs.name.input.value = "";
-        this.handleClose()
-
+        this.handleClose();
     }
     
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import ConceptCard from './ConceptCard';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FlatButton from 'material-ui/FlatButton';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import ContentEdit from 'material-ui/svg-icons/editor/mode-edit';
 import Close from 'material-ui/svg-icons/navigation/close';
@@ -9,37 +9,28 @@ import { browserHistory } from 'react-router';
 
 
 
-const ConceptView = React.createClass({
-    
-    getInitialState(){
-        return {
-            editing: false
-        }
-    },
-    
+const ConceptView = React.createClass({ 
     render(){
-        const editMode = this.state.editing;
+        const { concept } = this.props;
 
         return(
             <div className="conceptViewContainer grey">
-                <FloatingActionButton
-                    mini={true}
-                    backgroundColor='red'
-                    style={{position: 'fixed', right: 20, top: 70}}
-                    onTouchTap={this.handleConceptDelete}
-                >
-                    <Close />
-                </FloatingActionButton>
-                <FloatingActionButton
-                    mini={true}
+                <p className="red-text">{concept.errorMessage}</p>
+                <FlatButton
+                    label={concept.isEditing ? 'Save' : 'Edit'}
                     secondary={true}
-                    style={{position: 'fixed', right: 80, top: 70}}
+                    style={{position: 'fixed', right: 120, top: 70}}
                     onTouchTap={this.handleFABClick}
-                >
-                    {editMode ? <ContentSave /> : <ContentEdit />}
-                </FloatingActionButton>
+                    icon={concept.isEditing ? <ContentSave /> : <ContentEdit />}
+                />
+                <FlatButton
+                    label="Delete"
+                    style={{position: 'fixed', right: 20, top: 70, color: 'red'}}
+                    onTouchTap={this.handleConceptDelete}
+                    icon={<Close/>}
+                />
                 {
-                    editMode ? (
+                    concept.isEditing ? (
                         <TextField
                             hintText="Concept Name"
                             style={{
@@ -54,7 +45,7 @@ const ConceptView = React.createClass({
                             }}
                             ref="concept_name"
                             onChange={this.handleConceptNameChange}
-                            value={this.props.concept.name}
+                            value={concept.data.name}
                         />
                     )
                         :
@@ -68,68 +59,61 @@ const ConceptView = React.createClass({
                                 fontWeight: '400'
                             }}
                         >
-                            {this.props.concept.name}
+                            {concept.data.name}
                         </p>
 
                 }
-                <div className="conceptModes">
-                    <ConceptCard
-                        concept={this.props.concept}
-                        mode={0}
-                        editing={this.state.editing}
+                {
+                    concept.data.key && (
+                        <div className="conceptModes">
+                            <ConceptCard
+                                concept={concept}
+                                mode={0}
+                                updateConcept={this.handleConceptChange}
+                            />
+                             <ConceptCard
+                                concept={concept}
+                                mode={1}
+                                updateConcept={this.handleConceptChange}
+                            />
+                             <ConceptCard
+                                concept={concept}
+                                mode={2}
+                                updateConcept={this.handleConceptChange}
+                            />
+                        </div>
 
-                        updateConcept={this.handleConceptChange}
-                    />
-                     <ConceptCard
-                        concept={this.props.concept}
-                        mode={1}
-                        editing={this.state.editing}
-
-                        updateConcept={this.handleConceptChange}
-                    />
-                     <ConceptCard
-                        concept={this.props.concept}
-                        mode={2}
-                        editing={this.state.editing}
-
-                        updateConcept={this.handleConceptChange}
-                    />
-                </div>
+                    )
+                }
             </div>
         )
     },
     
     handleConceptNameChange(){
         const concept_name = this.refs.concept_name.input.value;
-        const updated_concept = Object.assign({}, this.props.concept, {
+        const updated_concept = Object.assign({}, this.props.concept.data, {
             name: concept_name
         });
         this.handleConceptChange(updated_concept)
     },
 
     handleConceptChange(concept){
-        const updated_concept = Object.assign({}, this.props.concept, concept);
+        const updated_concept = Object.assign({}, this.props.concept.data, concept);
         this.props.updateConcept(updated_concept)
     },
 
     handleFABClick(){
-        if(this.state.editing){
+        if(this.props.concept.isEditing){
             //Save the concept
-            this.props.saveConcept(this.props.concept);
-            
-            this.setState({
-                editing: false
-            })
+            this.props.saveConcept(this.props.concept.data);
         }else{
             //Switch to editing mode
-            this.setState({
-                editing: true
-            })
+            this.props.editMode();
         }
     },
     
     handleConceptDelete(){
-        browserHistory.push(`/chapters/${this.props.chapter_key}/concepts/${this.props.concept.key}/delete`)
+        browserHistory.push(`/chapters/${this.props.chapter_key}/concepts/${this.props.concept.data.key}/delete`)
     }
 });
 

@@ -8,7 +8,7 @@ import {
     CHAPTER_EDIT_REQUEST, CHAPTER_EDIT_SUCCESS, CHAPTER_EDIT_FAILURE,
     CHAPTER_DELETE_REQUEST, CHAPTER_DELETE_SUCCESS, CHAPTER_DELETE_FAILURE,
     CONCEPTS_REQUEST, CONCEPTS_SUCCESS, CONCEPTS_FAILURE,
-    UPDATE_SELECTED_CONCEPT, SELECT_CONCEPT,
+    EDIT_SELECTED_CONCEPT, UPDATE_SELECTED_CONCEPT, SELECT_CONCEPT,
     NEW_CONCEPT_REQUEST, NEW_CONCEPT_SUCCESS, NEW_CONCEPT_FAILURE,
     SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE,
     DELETE_CONCEPT_REQUEST, DELETE_CONCEPT_SUCCESS, DELETE_CONCEPT_FAILURE
@@ -179,6 +179,7 @@ export const concepts = (state = {
     chapter: {},
     list: [],
     selected: {
+        isEditing: false,
         isSaving: false,
         errorMessage: '',
         chapter_key: null,
@@ -202,47 +203,11 @@ export const concepts = (state = {
                 chapter: action.response.message.chapter,
                 list: action.response.message.chapter.concepts,
                 errorMessage: '',
-                selected: action.response.message.chapter.concepts[0]
             });
         case CONCEPTS_FAILURE:
             return Object.assign({}, state, {
                 errorMessage: action.error,
                 isFetching: false
-            });
-        // Select a concept
-        case SELECT_CONCEPT:
-            return Object.assign({}, state, {
-                selected: state.list.filter(concept => {
-                    return concept.key === action.concept_key
-                })[0]
-            });
-        // Update selected concept
-        case UPDATE_SELECTED_CONCEPT:
-            return Object.assign({}, state, {
-                selected: action.concept
-            });
-        // Save selected concept
-        case SAVE_SELECTED_CONCEPT_REQUEST:
-            return Object.assign({}, state, {
-                isSaving: true
-            });
-        case SAVE_SELECTED_CONCEPT_SUCCESS:
-            const new_concept = action.response.message.concept
-            return Object.assign({}, state, {
-                list: state.list.map(concept => {
-                    if (concept.key !== new_concept.key) {
-                        return concept;
-                    } else {
-                        return new_concept
-                    }
-                }),
-                selected: new_concept,
-                isSaving: false
-            });
-        case SAVE_SELECTED_CONCEPT_FAILURE:
-            return Object.assign({}, state, {
-                isSaving: false,
-                errorMessage: action.error
             });
         // Creating a new concept
         case NEW_CONCEPT_REQUEST:
@@ -254,12 +219,24 @@ export const concepts = (state = {
             return Object.assign({}, state, {
                 isFetching: false,
                 list: state.list.concat([action.response.message.concept]),
-                selected: action.response.message.concept
             });
         case NEW_CONCEPT_FAILURE:
             return Object.assign({}, state, {
                 isFetching: false,
                 errorMessage: action.error
+            });
+
+        // Save selected concept
+        case SAVE_SELECTED_CONCEPT_SUCCESS:
+            const editedConcept = action.response.message.concept;
+            return Object.assign({}, state, {
+                list: state.list.map(concept => {
+                    if(concept.key !== editedConcept.key) {
+                        return concept
+                    }else{
+                        return editedConcept
+                    }
+                })
             });
         // Deleting a concept
         case DELETE_CONCEPT_REQUEST:
@@ -271,7 +248,6 @@ export const concepts = (state = {
                 list: state.list.filter((concept) => {
                     return concept.key !== action.response.message.deleted_key
                 }),
-                selected: state.list[0],
                 isFetching: false
 
             });
@@ -282,5 +258,58 @@ export const concepts = (state = {
             });
         default:
             return state
+    }
+};
+
+export const selectedConcept = (state = {
+    isEditing: false,
+    isSaving: false,
+    errorMessage: '',
+    data: {}
+}, action) => {
+    switch (action.type) {
+        // Select a concept
+        case SELECT_CONCEPT:
+            return Object.assign({}, state, {
+                data: action.concept
+            });
+        // Edit selected concept
+        case EDIT_SELECTED_CONCEPT:
+            return Object.assign({}, state, {
+                isEditing: true
+            });
+        // Update selected concept
+        case UPDATE_SELECTED_CONCEPT:
+            return Object.assign({}, state, {
+                data: action.concept
+            });
+        // New Concept
+        case NEW_CONCEPT_SUCCESS:
+            return Object.assign({}, state, {
+                data: action.response.message.concept
+            });
+        // Save selected concept
+        case SAVE_SELECTED_CONCEPT_REQUEST:
+            return Object.assign({}, state, {
+                isSaving: true,
+                isEditing: false
+            });
+        case SAVE_SELECTED_CONCEPT_SUCCESS:
+            return Object.assign({}, state, {
+                data: action.response.message.concept,
+                isSaving: false,
+            });
+        case SAVE_SELECTED_CONCEPT_FAILURE:
+            return Object.assign({}, state, {
+                isSaving: false,
+                isEditing: true,
+                errorMessage: action.error
+            });
+        case DELETE_CONCEPT_SUCCESS:
+            return Object.assign({}, state, {
+                data: {}
+            });
+        default:
+            return state;
     }
 };

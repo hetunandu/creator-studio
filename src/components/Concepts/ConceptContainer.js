@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ConceptList from './ConceptList';
 import ConceptView from './ConceptView';
-import { updateSelectedConcept, saveSelectedConcept } from '../../actions';
+import { editSelectedConcept, updateSelectedConcept, saveSelectedConcept } from '../../actions';
 
 
 // Container of the index and the concept information
@@ -14,13 +14,14 @@ const ConceptsContainer = React.createClass({
                     <ConceptList
                         chapter_key={this.props.chapter_key}
                         concepts={this.props.concepts}
+                        selectedConcept={this.props.selectedConcept}
                     />
                 </div>
                 <div className="col m9">
                     <ConceptView 
-                        concept={this.props.concepts.selected}
+                        concept={this.props.selectedConcept}
                         chapter_key={this.props.chapter_key}
-                        
+                        editMode={this.props.editSelectedConcept}
                         updateConcept={this.props.updateSelectedConcept}
                         saveConcept={this.props.saveSelectedConcept}
                     />
@@ -31,13 +32,14 @@ const ConceptsContainer = React.createClass({
     }
 });
 
-const mapStateToProps = ({newConcept, concepts}, {params: {chapter_key}}) => ({
-    newConcept,
+const mapStateToProps = ({selectedConcept, concepts}, {params: {chapter_key}}) => ({
+    selectedConcept,
     concepts,
     chapter_key
 });
 
 const mapDispatchToProps = dispatch => ({
+    editSelectedConcept: () => {dispatch(editSelectedConcept())},
     updateSelectedConcept: (concept) => {dispatch(updateSelectedConcept(concept))},
     saveSelectedConcept: (concept) => {dispatch(saveSelectedConcept(concept))} 
 });

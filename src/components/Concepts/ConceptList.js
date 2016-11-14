@@ -37,10 +37,10 @@ const ConceptList = React.createClass({
 									<li key={concept.key}>
 										<div
 											className={
-												this.props.concepts.selected.key === concept.key ?
+												this.props.selectedConcept.data.key === concept.key ?
 													"concept-list-item selected" : "concept-list-item"
 											}
-											onClick={() => this.handleConceptSelection(concept.key)}
+											onClick={() => this.handleConceptSelection(concept)}
 										>		
 											{concept.name}
 										</div>
@@ -55,8 +55,8 @@ const ConceptList = React.createClass({
 		);
 	},
 
-	handleConceptSelection(concept_key){
-		this.props.selectConcept(concept_key)
+	handleConceptSelection(concept){
+		this.props.selectConcept(concept)
 	},
 
 
@@ -68,7 +68,7 @@ const ConceptList = React.createClass({
 
 const mapDispatchToProps = dispatch => ({
 	fetchConcepts: chapter_key => dispatch(fetchConcepts(chapter_key)),
-	selectConcept: concept_key => dispatch(selectConcept(concept_key))
+	selectConcept: concept => dispatch(selectConcept(concept))
 });
 
 export default connect(null, mapDispatchToProps)(ConceptList)
