@@ -19,6 +19,8 @@ class Title extends React.Component {
     			    <TextField
     			        hintText="Type here..."
     			        value={data}
+    			        fullWidth
+    			        style={{fontSize: 20}}
     			        onChange={(e) => this.props.updateNode(e.target.value, 'title', index)}
     			    />
     			</div>

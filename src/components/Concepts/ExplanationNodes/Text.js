@@ -22,6 +22,7 @@ class Text extends React.Component {
         		        hintText="Text"
         		        multiLine={true}
         		        value={data}
+        		        fullWidth
         		        onChange={(e) => this.props.updateNode(e.target.value, 'text', index)}
         		    />
         		</div>

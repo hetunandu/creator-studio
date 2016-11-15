@@ -1,45 +1,63 @@
 import React from 'react';
 import RemoveIcon from 'material-ui/svg-icons/navigation/close';
 import UpArrow from 'material-ui/svg-icons/navigation/arrow-upward';
-import AddPointIcon from 'material-ui/svg-icons/av/playlist-add';
+import {connect} from 'react-redux';
+import {updateSelectedConcept} from '../../../actions.js';
 
 const NodeToolbar = React.createClass({
     render(){
-        const iconStyles = {
-            cursor: 'pointer',
-            marginLeft: 10
-        };
         return (
-            <div style={{backgroundColor: '#afafaf', paddingTop: 5, paddingLeft: 5}}>
+            <div className="toolbar">
                 {this.props.nodeIcon}
-                <UpArrow
-                    className="orange-text"
-                    style={iconStyles}
-                    onClick={() => this.props.shiftNodeAbove(this.props)}
-                />
-                
-
-                <RemoveIcon
-                    className="red-text right"
-                    style={iconStyles}
-
-                    onClick={() => this.props.removeNode(this.props.index)}
-                />
-
-                {
-                    this.props.pointer &&
-                    <AddPointIcon
-                        className="blue-text right"
-                        style={iconStyles}
-
-                        onClick={() => this.props.handleAddPoint(this.props.index)}
+                <div className="right">
+                    {
+                        this.props.index > 0 ? (
+                            <UpArrow
+                                className="orange-text toolbar-button"
+                                onClick={() => this.shiftNodeAbove()}
+                            />
+                        ) : ('')
+                    }
+                    <RemoveIcon
+                        className="red-text right toolbar-button"
+                        onClick={() => this.props.removeNode(this.props.index)}
                     />
-
-                }
-
+                </div>
+                { this.props.children }                
             </div>
         )
+    },
+
+    shiftNodeAbove(){
+        // Remove the node from its oldIndex
+        let newExp = this.props.concept.explanation
+                        .slice(0, this.props.index)
+                        .concat(this.props.concept.explanation.slice(this.props.index + 1));
+
+        // Add it back to the new index
+        newExp.splice(this.props.index - 1, 0, this.props.concept.explanation[this.props.index])
+
+        // Send Action
+        this.props.updateSelectedConcept(Object.assign({}, this.props.concept, {
+            explanation: newExp
+        }))
+
+
     }
 });
 
-export default NodeToolbar;
+NodeToolbar.propTypes = {
+  nodeIcon: React.PropTypes.element.isRequired,
+  index: React.PropTypes.number.isRequired,
+  removeNode: React.PropTypes.func
+}
+
+const mapStateToProps = ({selectedConcept: {data}}) => ({
+    concept: data
+})
+
+
+const mapDispatchToProps = (dispatch) => ({
+    updateSelectedConcept: updatedConcept => {dispatch(updateSelectedConcept(updatedConcept))}
+})
+export default connect(mapStateToProps, mapDispatchToProps)(NodeToolbar);

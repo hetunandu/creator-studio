@@ -25,6 +25,7 @@ class Image extends React.Component {
         		    <TextField
         		        hintText="Image link"
         		        value={data}
+        		        fullWidth
         		        onChange={(e) => this.props.updateNode(e.target.value, 'image', index)}
         		    />
         		</div>

@@ -2,6 +2,8 @@ import React from 'react';
 import NodeToolbar from './NodeToolbar';
 import TextField from 'material-ui/TextField';
 import PointerIcon from 'material-ui/svg-icons/editor/format-list-numbered';
+import AddPointIcon from 'material-ui/svg-icons/av/playlist-add';
+
 
 
 class Pointers extends React.Component {
@@ -36,17 +38,20 @@ class Pointers extends React.Component {
                     <NodeToolbar
                         nodeIcon={<PointerIcon />}
                         index={index}
-                        pointer={true}
-                        handleAddPoint={() => this.handleAddPoint()}
-                        
                         removeNode={this.props.removeNode}
-                    />
+                    >
+                        <AddPointIcon
+                            className="blue-text toolbar-button"
+                            onClick={() => this.handleAddPoint(index)}
+                        />
+                    </NodeToolbar>
                     <ol>
                         {
                             data.map((point, j) => {
                                 return(
                                     <li key={j}>
                                         <TextField
+                                            fullWidth
                                             hintText="Pointer title..."
                                             value={point.title}
                                             onChange={(e) => this.updatePointer(e.target.value, j)}

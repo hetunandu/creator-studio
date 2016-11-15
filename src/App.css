@@ -125,6 +125,18 @@ input[type=text]:focus:not([readonly]){
     font-weight: 300;
 }
 
+.toolbar{
+    background-color: #d4d4d4;
+    padding: 5px;
+    padding-bottom: 0px;
+    border: 1px solid #a9a9a9;
+}
+
+.toolbar-button{
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 .clickable{
     cursor: pointer;
 }

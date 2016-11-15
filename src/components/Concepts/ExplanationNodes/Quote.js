@@ -21,6 +21,7 @@ class Quote extends React.Component {
         		    <TextField
         		        hintText="Type here..."
         		        value={data}
+        		        fullWidth
         		        onChange={(e) => this.props.updateNode(e.target.value, 'quote', index)}
         		    />
         		</div>

@@ -110,9 +110,7 @@ const ExplanationForm  = React.createClass({
         return (
             <div className="row">
                 <div className="nodes">
-                    {
-                        this.renderNodes(this.props.explanation)
-                    }
+                    { this.renderNodes(this.props.explanation) }
                     <div className="btns">
                         <IconButton tooltip="Title" onClick={() => this.addNode('title')}>
                             <TitleIcon />
