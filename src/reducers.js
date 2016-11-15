@@ -285,7 +285,6 @@ export const selectedConcept = (state = {
             });
         case SAVE_SELECTED_CONCEPT_SUCCESS:
             return Object.assign({}, state, {
-                data: action.response.message.concept,
                 isSaving: false,
             });
         case SAVE_SELECTED_CONCEPT_FAILURE:

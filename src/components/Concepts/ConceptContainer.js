@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ConceptList from './ConceptList';
 import ConceptView from './ConceptView';
+import Snackbar from 'material-ui/Snackbar';
 import { editSelectedConcept, updateSelectedConcept, saveSelectedConcept } from '../../actions';
 
 
@@ -26,6 +27,10 @@ const ConceptsContainer = React.createClass({
                         saveConcept={this.props.saveSelectedConcept}
                     />
                 </div>
+                 <Snackbar
+                    open={this.props.selectedConcept.isSaving}
+                    message="Saving..."
+                />
                 {this.props.children}
             </div>
         )

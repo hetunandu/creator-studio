@@ -10,6 +10,25 @@ import { browserHistory } from 'react-router';
 
 
 const ConceptView = React.createClass({ 
+
+    componentWillReceiveProps(nextProps){
+        // If the concept is being edited
+        if(this.props.concept.isEditing){
+            // If the concept is different
+            if(this.props.concept.data.key !== nextProps.concept.data.key){
+                // Save the old concept
+                this.props.saveConcept(this.props.concept.data);
+            }
+        }
+    },
+
+    componentWillUnmount(){
+        // If the concept is being edited
+        if(this.props.concept.isEditing){
+            this.props.saveConcept(this.props.concept.data)
+        }
+    },
+
     render(){
         const { concept } = this.props;
 
