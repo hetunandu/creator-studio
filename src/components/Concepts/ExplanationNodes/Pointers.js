@@ -1,14 +1,12 @@
 import React from 'react';
 import NodeToolbar from './NodeToolbar';
-import TextField from 'material-ui/TextField';
 import PointerIcon from 'material-ui/svg-icons/editor/format-list-numbered';
 import AddPointIcon from 'material-ui/svg-icons/av/playlist-add';
-
-
+import Point from './Point';
 
 class Pointers extends React.Component {
 
-    handleAddPoint(){
+    addPoint(){
         const newData = this.props.data.concat([{
             title: '',
             nodes: []
@@ -16,18 +14,31 @@ class Pointers extends React.Component {
         this.props.updateNode(newData, 'pointers', this.props.index)
     }
 
-    updatePointer(newData, index){
+    updatePoint(newData, index){
         const updatedNode = this.props.data.map((point, j) => {
             if(j !== index){
                 return point
             }else{
                 return Object.assign({}, point, {
-                    title: newData
+                    title: newData.title,
+                    nodes: newData.nodes
                 })
             }
         })
 
         this.props.updateNode(updatedNode, 'pointers', this.props.index)
+    }
+
+    removePoint(index){
+        const updatedPointer = this.props.data.filter((point, i) => {
+            if(i !== index){
+                return true
+            }else{
+                return false
+            }
+        })
+
+        this.props.updateNode(updatedPointer, 'pointers', this.props.index)
     }
 
     render() {
@@ -38,29 +49,31 @@ class Pointers extends React.Component {
                     <NodeToolbar
                         nodeIcon={<PointerIcon />}
                         index={index}
+                        shiftNode={this.props.shiftNode}
                         removeNode={this.props.removeNode}
                     >
                         <AddPointIcon
                             className="blue-text toolbar-button"
-                            onClick={() => this.handleAddPoint(index)}
+                            onClick={() => this.addPoint(index)}
                         />
                     </NodeToolbar>
-                    <ol>
+                    <ul className="unordered-list">
                         {
                             data.map((point, j) => {
                                 return(
                                     <li key={j}>
-                                        <TextField
-                                            fullWidth
-                                            hintText="Pointer title..."
-                                            value={point.title}
-                                            onChange={(e) => this.updatePointer(e.target.value, j)}
+                                        <Point 
+                                            point={point} 
+                                            index={j}
+                                            isEditing={true}
+                                            update={this.updatePoint.bind(this)}
+                                            remove={this.removePoint.bind(this)}
                                         />
                                     </li>
                                 )
                             })
                         }
-                    </ol>
+                    </ul>
 
                 </div>
 
@@ -71,7 +84,10 @@ class Pointers extends React.Component {
                         this.props.data.map((point, i) => {
                             return (
                                 <li key={i}>
-                                    <h6>{point.title}</h6>
+                                    <Point
+                                        point={point}
+                                        index={i}
+                                    />
                                 </li>
                             )
                         })

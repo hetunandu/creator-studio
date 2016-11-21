@@ -23,6 +23,8 @@ const QuestionsForm = React.createClass({
                                 <TextField
                                     hintText="Question"
                                     id={`question_${i}`}
+                                    hintStyle={{color: '#a5a2a2'}}
+                                    inputStyle={{color: 'white'}}
                                     value={question}
                                     onChange={this.updateQuestion}
                                 />

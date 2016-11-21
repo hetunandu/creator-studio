@@ -41,6 +41,19 @@ const ExplanationForm  = React.createClass({
         this.props.updateExplanation(newExp)
     },
 
+    shiftNode(index){
+        // Remove the node from its oldIndex
+        let newExp = this.props.explanation
+                        .slice(0, index)
+                        .concat(this.props.explanation.slice(index + 1));
+
+        // Add it back to the new index
+        newExp.splice(index - 1, 0, this.props.explanation[index])
+
+        // Send Action
+        this.props.updateExplanation(newExp)
+    },
+
     renderNodes(explanation){
 
         return explanation.map( (node, i) =>{
@@ -54,6 +67,7 @@ const ExplanationForm  = React.createClass({
                             data={node.data}
                             removeNode={this.removeNode}
                             updateNode={this.updateNode}
+                            shiftNode={this.shiftNode}
                         />
                     );
                 case 'image':
@@ -65,6 +79,7 @@ const ExplanationForm  = React.createClass({
                             data={node.data}
                             removeNode={this.removeNode}
                             updateNode={this.updateNode}
+                            shiftNode={this.shiftNode}
                         />
                     );
                 case 'quote':
@@ -76,6 +91,7 @@ const ExplanationForm  = React.createClass({
                             data={node.data}
                             removeNode={this.removeNode}
                             updateNode={this.updateNode}
+                            shiftNode={this.shiftNode}
                         />
                     );
                 case 'title':
@@ -87,6 +103,7 @@ const ExplanationForm  = React.createClass({
                             data={node.data}
                             removeNode={this.removeNode}
                             updateNode={this.updateNode}
+                            shiftNode={this.shiftNode}
                         />
                     )
                 case 'pointers':
@@ -98,6 +115,7 @@ const ExplanationForm  = React.createClass({
                             data={node.data}
                             removeNode={this.removeNode}
                             updateNode={this.updateNode}
+                            shiftNode={this.shiftNode}
                         />
                     );
                 default:

@@ -15,7 +15,7 @@ class Quote extends React.Component {
         		    <NodeToolbar
         		        nodeIcon={<QuoteIcon />}
         		        index={index}
-
+                        shiftNode={this.props.shiftNode}
         		        removeNode={this.props.removeNode}
         		    />
         		    <TextField

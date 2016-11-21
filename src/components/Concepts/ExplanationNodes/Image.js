@@ -14,7 +14,7 @@ class Image extends React.Component {
         		    <NodeToolbar
         		        nodeIcon={<ImageIcon />}
         		        index={index}
-
+                        shiftNode={this.props.shiftNode}
         		        removeNode={this.props.removeNode}
         		    />
         		    <img

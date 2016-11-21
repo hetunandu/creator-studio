@@ -5,6 +5,17 @@ import TextField from 'material-ui/TextField';
 
 
 class Text extends React.Component {
+    
+    markImp(){
+        // Get selected text
+        // Add astrics on both sides
+        // update data
+    }
+
+    renderText(data){
+        return <p>{data}</p>
+    }
+
     render() {
 
     	const { data, isEditing, index } = this.props
@@ -15,9 +26,9 @@ class Text extends React.Component {
         		    <NodeToolbar
         		        nodeIcon={<TextIcon />}
         		        index={index}
-
         		        removeNode={this.props.removeNode}
-        		    />
+                        shiftNode={this.props.shiftNode}
+                    />
         		    <TextField
         		        hintText="Text"
         		        multiLine={true}
@@ -27,9 +38,8 @@ class Text extends React.Component {
         		    />
         		</div>
         	) : (
-        		<p>{data}</p>
+        		this.renderText(data)
         	)
-
         );
     }
 }
@@ -39,7 +49,8 @@ Text.propTypes = {
 	isEditing: React.PropTypes.bool,
 	index: React.PropTypes.number,
 	removeNode: React.PropTypes.func,
-	updateNode: React.PropTypes.func
+	updateNode: React.PropTypes.func,
+    shiftNode: React.PropTypes.func
 }
 
 export default Text;

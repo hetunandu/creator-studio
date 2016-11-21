@@ -151,3 +151,29 @@ input[type=text]:focus:not([readonly]){
     right: 5px;
     top: 5px;
 }
+
+.point-toolbar{
+    background-color: #a1a1a1;
+    border: 1px solid #464444;
+}
+
+.point-title{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.concept-title{
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.unordered-list{
+    padding-left: 15px;
+}
+.unordered-list .node{
+    padding-left: 10px;
+}
+
+.point-index{
+    font-size: 20px;
+}

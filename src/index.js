@@ -81,9 +81,6 @@ const routes = {
 
 // Render the Element
 const render = () => {
-  let state = store.getState();
-  console.log(state);
-
   ReactDOM.render(
     <Provider store={store}>
       <Router history={history} routes={routes} >
