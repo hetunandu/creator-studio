@@ -38,13 +38,16 @@ function callApi(endpoint, authenticated, method, body) {
         .then(json => {
             // if not success, reject the promise
             if (json.success === false) {
+                if (json.error === "User not found"){
+                    localStorage.removeItem('login_token');
+                }
                 return Promise.reject(json)
             }
 
             // Return the json either ways
             return json
 
-            //Catch any other errors
+        //Catch any other errors
         }).catch(err => Promise.reject(err))
 }
 

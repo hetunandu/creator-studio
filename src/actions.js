@@ -278,7 +278,11 @@ export function saveSelectedConcept(concept){
             body: concept,
             method: 'PUT',
             authenticated: true,
-            types: [SAVE_SELECTED_CONCEPT_REQUEST, SAVE_SELECTED_CONCEPT_SUCCESS, SAVE_SELECTED_CONCEPT_FAILURE]
+            types: [
+                SAVE_SELECTED_CONCEPT_REQUEST, 
+                SAVE_SELECTED_CONCEPT_SUCCESS,
+                SAVE_SELECTED_CONCEPT_FAILURE
+            ]
         }
     }
 }
