@@ -18,7 +18,6 @@ class Point extends React.Component {
                 }
             })
         })
-
         this.props.update(newPoint, this.props.index)
 	}
 
@@ -68,7 +67,7 @@ class Point extends React.Component {
                                     <span className="point-index">{this.props.index + 1}</span>
                                 }
                                 index={this.props.index}
-                                removeNode={this.props.removeNode}
+                                removeNode={this.props.remove}
                             >
                                 <TextIcon
                                     className="blue-text text-darken-4 toolbar-button"
