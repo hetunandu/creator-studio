@@ -2,6 +2,7 @@ import React from 'react';
 import NodeToolbar from './NodeToolbar';
 import TextIcon from 'material-ui/svg-icons/editor/short-text';
 import TextField from 'material-ui/TextField';
+import Markdown from 'react-remarkable';
 
 
 class Text extends React.Component {
@@ -38,7 +39,7 @@ class Text extends React.Component {
         		    />
         		</div>
         	) : (
-        		this.renderText(data)
+        		<Markdown source={data} />
         	)
         );
     }

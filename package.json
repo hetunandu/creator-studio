@@ -1,6 +1,6 @@
 {
   "name": "creator-studio",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.5.1"
@@ -10,6 +10,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.0.4",
+    "react-remarkable": "^1.1.1",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.5",
     "react-tap-event-plugin": "^1.0.0",

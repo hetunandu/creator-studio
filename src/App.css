@@ -177,3 +177,7 @@ input[type=text]:focus:not([readonly]){
 .point-index{
     font-size: 20px;
 }
+
+strong{
+    color: red;
+}

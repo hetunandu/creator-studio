@@ -103,7 +103,8 @@ Pointers.propTypes = {
     isEditing: React.PropTypes.bool,
     index: React.PropTypes.number,
     removeNode: React.PropTypes.func,
-    updateNode: React.PropTypes.func
+    updateNode: React.PropTypes.func,
+    shiftNode: React.PropTypes.func
 }
 
 

@@ -43,7 +43,8 @@ Title.propTypes = {
 	index: React.PropTypes.number,
 	isEditing: React.PropTypes.bool,
 	removeNode: React.PropTypes.func,
-	updateNode: React.PropTypes.func
+	updateNode: React.PropTypes.func,
+    shiftNode: React.PropTypes.func
 }
 
 export default Title;
