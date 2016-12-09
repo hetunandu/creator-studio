@@ -257,6 +257,13 @@ export const selectedConcept = (state = {
     data: {}
 }, action) => {
     switch (action.type) {
+        case CONCEPTS_REQUEST:
+            return {
+                isEditing: false,
+                isSaving: false,
+                errorMessage: '',
+                data: {}
+            }
         // Select a concept
         case SELECT_CONCEPT:
             return Object.assign({}, state, {

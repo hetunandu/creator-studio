@@ -2,7 +2,9 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import NodeToolbar from './NodeToolbar';
 import TextIcon from 'material-ui/svg-icons/editor/short-text';
+import SubPointerIcon from 'material-ui/svg-icons/editor/format-list-bulleted';
 import ImageIcon from 'material-ui/svg-icons/editor/insert-photo';
+import AddPointIcon from 'material-ui/svg-icons/av/playlist-add';
 import Text from './Text';
 import Image from './Image';
 
@@ -21,6 +23,30 @@ class Point extends React.Component {
         this.props.update(newPoint, this.props.index)
 	}
 
+    removeSubPoint(pointIndex, subPointIndex){
+        const newPoint = Object.assign({}, this.props.point, {
+            nodes: this.props.point.nodes.map((node, i) => {
+                if(i !== pointIndex){
+                    return node
+                }else{
+                    const newSubNode = Object.assign({}, node, {
+                        data: node.data.filter((subPoint, j) => {
+                                if(j !== subPointIndex){
+                                    return true
+                                }else{
+                                    return false
+                                }
+                            })
+                    })
+                    
+                    return newSubNode
+                }
+            })
+        })
+
+        this.props.update(newPoint, this.props.index)
+    }
+
 	addPointNode(type){
 		const newPoint = Object.assign({}, this.props.point, {
             nodes: this.props.point.nodes.concat([{
@@ -30,6 +56,34 @@ class Point extends React.Component {
         })
         this.props.update(newPoint, this.props.index)
 	}
+
+    addSubPointNode(){
+        const newPoint = Object.assign({}, this.props.point, {
+            nodes: this.props.point.nodes.concat([{
+                type: 'subPoint',
+                data: [""]
+            }])
+        })
+
+        this.props.update(newPoint, this.props.index)
+    }
+
+    addSubPoint(index){
+        const newPoint = Object.assign({}, this.props.point, {
+            nodes: this.props.point.nodes.map( (node, i) => {
+                if(i !== index) {
+                    return node
+                }else{
+                    const newSub = Object.assign({}, node, {
+                        data: node.data.concat([""])
+                    })
+                    return newSub
+                }
+            })
+        })
+
+        this.props.update(newPoint, this.props.index)
+    }
 
     updatePointNode(value, type, index){
         const newPoint = Object.assign({}, this.props.point, {
@@ -47,6 +101,29 @@ class Point extends React.Component {
 
         this.props.update(newPoint, this.props.index)
     }
+
+    updateSubPoint(index, value, type, subPointIndex){
+        const newPoint = Object.assign({}, this.props.point, {
+            nodes: this.props.point.nodes.map((node, i) => {
+                if(i !== index){
+                    return node
+                }else{
+                    const newSub = Object.assign({}, node, {
+                        data: node.data.map((subPoint, j) => {
+                            if(j !== subPointIndex){
+                                return subPoint
+                            }else{
+                                return value
+                            }
+                        })
+                    })
+                    return newSub
+                }
+            })
+        })
+
+        this.props.update(newPoint, this.props.index)
+    }   
 
     updateTitle(newTitle){
         const newPoint = Object.assign({}, this.props.point, {
@@ -76,6 +153,10 @@ class Point extends React.Component {
                                 <ImageIcon 
                                     className="blue-text text-darken-4 toolbar-button"
                                     onClick={() => this.addPointNode('image')}
+                                />
+                                <SubPointerIcon
+                                    className="blue-text text-darken-4 toolbar-button"
+                                    onClick={() => this.addSubPointNode()}
                                 />
                             </NodeToolbar>
                             <TextField
@@ -108,6 +189,36 @@ class Point extends React.Component {
                                                 removeNode={this.removePointNode.bind(this)}
                                             />
                                         )
+                                    }else if(node.type === "subPoint"){
+                                        return (
+                                            <div key={`${i}-point${this.props.index}`}>
+                                                <NodeToolbar
+                                                    nodeIcon={<SubPointerIcon/>}
+                                                    index={i}
+                                                    removeNode={this.removePointNode.bind(this)}
+                                                >
+                                                    <AddPointIcon
+                                                        className="blue-text toolbar-button"
+                                                        onClick={() => this.addSubPoint(i)}
+                                                    />
+                                                </NodeToolbar>
+                                                {
+                                                    node.data.map( (subPoint, j) => {
+                                                        return (
+                                                            <Text
+                                                                key={`${j}-subPoint-${i}`}
+                                                                data={subPoint}
+                                                                index={j}
+                                                                isEditing={true}
+                                                                updateNode={this.updateSubPoint.bind(this, i)}
+                                                                removeNode={() => this.removeSubPoint(i, j)}
+                                                            />
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
+
                                     }else{
                                         return "unknown type"
                                     }
@@ -134,6 +245,23 @@ class Point extends React.Component {
                                                 data={node.data}
                                                 index={i}
                                             />
+                                        )
+                                    }else if(node.type === "subPoint"){
+                                        return (
+                                            <ol key={`subPoint-${i}`} type="a">
+                                            {
+                                                node.data.map((subPoint, j) => {
+                                                    return (
+                                                        <li key={`${j}-subPoint-${i}`}>
+                                                            <Text
+                                                                data={subPoint}
+                                                                index={j}
+                                                            />
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                            </ol>
                                         )
                                     }else{
                                         return "unknown type"
