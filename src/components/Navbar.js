@@ -15,7 +15,7 @@ const Navbar = React.createClass({
         var rightIcon;
         switch(this.props.auth.isAuthenticated){
             case true:
-                rightIcon = <p style={{color: 'white'}}>Hello, creator</p>
+                rightIcon = <p style={{color: 'white'}}>api v3</p>
                 break;
             default:
                 rightIcon = <p style={{color: 'white'}}>Not logged in</p>

@@ -1,5 +1,5 @@
 //export const BASE_URL = 'http://127.0.0.1:8080/';
-export const BASE_URL = 'https://noted-api.appspot.com/';
+export const BASE_URL = 'https://3-dot-noted-api.appspot.com/';
 
 
 // The function that will set the appropriate config and call the API
